@@ -1,20 +1,21 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const mongoose = require("mongoose");
 
 require("dotenv").config()
 
-var indexRouter = require('./routes/index');
-var app = express();
+const indexRouter = require("./routes/index.js");
+const app = express();
+const cors = require('cors')
 
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
-
+const Admin = require("./models/admin.js")
 
 mongoose.set("strictQuery", false);
 
@@ -28,6 +29,17 @@ async function main() {
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+
+app.use(cors())
+app.use(session({ secret: process.env.SESSION_KEY, resave: false, saveUninitialized: false,
+  cookie: {
+      secure: false,
+      maxAge: 3600000 
+  } }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -52,6 +64,39 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+passport.use(
+  new LocalStrategy(async (username, password, done) => {
+    try {
+      const admin = await Admin.findOne({ name: username });
+      if (!admin) {
+        req.session.message = [];
+        return done(null, false, { message: "Incorrect username or password" });
+      } else {
+        const match = await bcrypt.compare(password, admin.password);
+        if (!match) {
+          return done(null, false, { message: "Incorrect username or password" });
+        }
+        return done(null, admin);
+      }
+    } catch (err) { 
+      return done(err);
+    }
+  })
+);
+
+passport.serializeUser((admin, done) => {
+  done(null, admin.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const admin = await Admin.findById(id);
+    done(null, admin);
+  } catch (err) {
+    done(err);
+  }
 });
 
 module.exports = app;

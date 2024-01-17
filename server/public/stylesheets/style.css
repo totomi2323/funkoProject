@@ -6,3 +6,73 @@ body {
 a {
   color: #00B7FF;
 }
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+form.login-form, form.signup-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+}
+
+.loginHeader ,.signupHeader {
+  text-align: center;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.loginLabel ,.signupLabel {
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.loginInput ,.signupInput {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button.submit-button {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button.submit-button:hover {
+  background-color: #45a049;
+}
+
+.errorList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: #d9534f;
+}
+
+.errorMsg {
+  margin-bottom: 5px;
+}
+.back-button {
+  display: inline-flex;
+  justify-self: flex-end;
+}

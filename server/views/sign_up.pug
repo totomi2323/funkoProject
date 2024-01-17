@@ -1,0 +1,20 @@
+extends layout
+
+block content
+    form.signup-form(method="POST", action="")
+        h1.signupHeader Sign up
+        .form-group 
+            label.signupLabel(for='name') Name: 
+            input#name.signupInput(type="text" placeholder ="Name" name="name" required="true" value=(undefined === user ? '' : user.name) )
+            label.signupLabel(for='password') Password: 
+            input#password.signupInput(type="password"  name="password" required="true")
+            label.signupLabel(for='passwordConfirmation') Password confirmation: 
+            input#password.signupInput(type="password"  name="passwordConfirmation" required="true")
+            label.signupLabel(for='secretKey') Signup Key: 
+            input#secretKey.signupInput(type="password"  name="secretKey" required="true" )
+        button.submit-button(type="submit") Submit 
+        a.back-button(href="/") Back to Homepage
+        if errors 
+            ul  
+                for error in errors 
+                    li!= error.msg
