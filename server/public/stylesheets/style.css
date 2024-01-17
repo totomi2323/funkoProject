@@ -1,12 +1,8 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  padding: 0;
+  margin: 0;
 }
-
-a {
-  color: #00B7FF;
-}
-body {
+.mainContent {
   font-family: Arial, sans-serif;
   background-color: #f0f0f0;
   display: flex;

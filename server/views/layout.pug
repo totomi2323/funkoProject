@@ -3,5 +3,18 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+  body 
+    if user
+      div(class="navbar-container")
+        ul(class="navbar")
+          div(class="nav-view")
+            li
+              a(href="/home") Home
+            li
+              a(href="/series") Series
+            li
+              a(href="/requests") Requests
+            li 
+              a(href="/logout") Log out
+    div.mainContent
+      block content
