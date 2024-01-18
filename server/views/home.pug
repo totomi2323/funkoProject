@@ -1,4 +1,26 @@
 extends layout
 
 block content
-    p Succesfull login 
+    table.table
+        thead
+            tr
+                th.table-header Name
+                th.table-header Image
+                th.table-header Series
+                th.table-header Available
+                th.table-header Price
+                th.table-header Alt
+        tbody
+            each item in data.docs
+                tr.table-row
+                    td.table-cell= item.name
+                    td.table-cell
+                        img(src=item.imgUrl, alt=item.alt, style='max-width: 100px;')
+                    td.table-cell
+                        each series in item.series
+                            p.table-text= series
+                    td.table-cell
+                        each user in item.available
+                            p.table-text= user
+                    td.table-cell.table-number= item.price
+                    td.table-cell.table-text= item.alt

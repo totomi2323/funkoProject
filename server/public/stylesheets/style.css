@@ -1,8 +1,8 @@
 body {
   padding: 0;
-  margin: 0;
+  margin:0;
 }
-.mainContent {
+.loginCenter {
   font-family: Arial, sans-serif;
   background-color: #f0f0f0;
   display: flex;
@@ -71,4 +71,100 @@ button.submit-button:hover {
 .back-button {
   display: inline-flex;
   justify-self: flex-end;
+}
+/* Navbar Container */
+.navbar-container {
+  background-color: #2c3e50;
+  padding: 15px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1; /* Ensures it stays on top of other elements */
+}
+
+/* Navbar List */
+.navbar {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+/* Navigation List Item */
+li.navList {
+  margin-right: 20px;
+}
+
+/* Navigation Link */
+a.navHref {
+  text-decoration: none;
+  color: #ecf0f1;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a.navHref:hover {
+  background-color: #34495e;
+  color: #fff;
+}
+
+/* Highlight the current page link */
+a.navHref.active {
+  background-color: #3498db;
+  color: #fff;
+}
+
+/* Logout link in a distinct style */
+a.navHref.logout {
+  color: #e74c3c;
+}
+
+a.navHref.logout:hover {
+  background-color: #c0392b;
+}
+
+
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  
+}
+
+/* Header cell styling */
+.table-header {
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px;
+  text-align: left;
+}
+
+/* Row styling */
+.table-row:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Cell styling */
+.table-cell {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+/* Image styling */
+.table-image {
+  max-width: 100px;
+}
+
+/* Number cell styling */
+.table-number {
+  text-align: right;
+}
+
+/* Text cell styling */
+.table-text {
+  margin: 0;
 }

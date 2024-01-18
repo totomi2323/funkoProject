@@ -7,14 +7,13 @@ html
     if user
       div(class="navbar-container")
         ul(class="navbar")
-          div(class="nav-view")
-            li
-              a(href="/home") Home
-            li
-              a(href="/series") Series
-            li
-              a(href="/requests") Requests
-            li 
-              a(href="/logout") Log out
+            li.navList
+              a.navHref(href="/home") Home
+            li.navList
+              a.navHref(href="/series") Series
+            li.navList
+              a.navHref(href="/requests") Requests
+            li.navList 
+              a.navHref(href="/logout") Log out
     div.mainContent
       block content

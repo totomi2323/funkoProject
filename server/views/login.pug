@@ -1,19 +1,20 @@
 extends layout
 
 block content
-    form.login-form(method="POST", action="")
-        h1.loginHeader Login 
-        .form-group 
-            label.loginLabel(for='username') Username:
-            input#email.loginInput(type="text" placeholder ="Example" name="username" required="true")
-            label.loginLabel(for='password') Password: 
-            input#password.loginInput(type="password"  name="password" required="true")
-        button.submit-button(type="submit") Submit 
-        if errors 
-            ul.errorList  
-                for error in errors 
-                    li.errorMsg!= error.msg
-        if validationErrors 
-            ul 
-                for error in validationErrors 
-                    li!= error
+    div.loginCenter
+        form.login-form(method="POST", action="")
+            h1.loginHeader Login 
+            .form-group 
+                label.loginLabel(for='username') Username:
+                input#email.loginInput(type="text" placeholder ="Example" name="username" required="true")
+                label.loginLabel(for='password') Password: 
+                input#password.loginInput(type="password"  name="password" required="true")
+            button.submit-button(type="submit") Submit 
+            if errors 
+                ul.errorList  
+                    for error in errors 
+                        li.errorMsg!= error.msg
+            if validationErrors 
+                ul 
+                    for error in validationErrors 
+                        li!= error
