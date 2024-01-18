@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const mongoosePaginate = require('mongoose-paginate-v2')
 
 const Schema = mongoose.Schema;
 
@@ -14,5 +15,7 @@ const ItemSchema = new Schema ({
 ItemSchema.virtual("url").get(function() {
         return `/item/${this._id}`
 })
+
+ItemSchema.plugin(mongoosePaginate)
 
 module.exports = mongoose.model("Item", ItemSchema)
