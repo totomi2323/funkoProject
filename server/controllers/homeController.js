@@ -3,7 +3,7 @@ const { body, validationResult } = require("express-validator");
 const Item = require("../models/item");
 
 const getPagination = (page, size) => {
-  const limit = size ? +size : 20;
+  const limit = size ? +size : 5;
   const offset = page ? page * limit : 0;
 
   return { limit, offset };

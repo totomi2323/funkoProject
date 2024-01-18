@@ -24,3 +24,8 @@ block content
                             p.table-text= user
                     td.table-cell.table-number= item.price
                     td.table-cell.table-text= item.alt
+    if data.hasPrevPage 
+        a(href="/home?page="+(data.prevPage-1)) Previous Page
+    if data.hasNextPage
+        a(href="/home?page="+(data.nextPage-1)) Next page 
+    
