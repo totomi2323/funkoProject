@@ -168,3 +168,45 @@ a.navHref.logout:hover {
 .table-text {
   margin: 0;
 }
+
+/* Search Box Container */
+.searchBox {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin: 20px 0;
+}
+
+/* Search Form Styling */
+.searchForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+/* Search Input Styling */
+.searchInput {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 5px;
+  width: 200px; /* Adjust the width as needed */
+}
+
+/* Search Button Styling */
+.searchButton {
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.searchButton:hover {
+  background-color: #2980b9;
+}

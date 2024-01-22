@@ -5,17 +5,17 @@ const Series = require("../models/series")
 
 
 const getPagination = (page, size) => {
-  const limit = size ? +size : 5;
+  const limit = size ? +size : 20;
   const offset = page ? page * limit : 0;
 
   return { limit, offset };
 };
 
 exports.home_get = asyncHandler(async (req, res, next) => {
-  const { page, size, name } = req.query;
+  const { page, size, search } = req.query;
 
-  let condition = name
-    ? { name: { $regex: new RegExp(name), $options: "i" } }
+  let condition = search
+    ? { name: { $regex: new RegExp(search), $options: "i" } }
     : {};
 
   const { limit, offset } = getPagination(page, size);
@@ -24,7 +24,7 @@ exports.home_get = asyncHandler(async (req, res, next) => {
 Item.paginate(condition,{ offset, limit, populate: 'series' })
     .then((data) => {
         console.log(data)
-        res.render("home", { title: "Home page", user: req.user, data: data });
+        res.render("home", { title: "Home page", user: req.user, data: data , searchName: search});
     })
     .catch((err) => {
       res.status(500).send({

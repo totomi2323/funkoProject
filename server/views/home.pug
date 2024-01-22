@@ -1,6 +1,10 @@
 extends layout
 
 block content
+    .searchBox
+        form.searchForm(method="GET" action='' )
+                input#search.searchInput(type="text" , placeholder="Search..." name="search"  required="true" value = searchName ? searchName : "")
+        button.searchButton(type="submit") Search
     table.table
         thead
             tr
@@ -24,8 +28,13 @@ block content
                             p.table-text= user
                     td.table-cell.table-number= item.price
                     td.table-cell.table-text= item.alt
-    if data.hasPrevPage 
-        a(href="/home?page="+(data.prevPage-1)) Previous Page
-    if data.hasNextPage
-        a(href="/home?page="+(data.nextPage-1)) Next page 
-    
+    if searchName                
+        if data.hasPrevPage 
+            a(href="/home?search="+searchName+"&page="+(data.prevPage-1)) Previous Page
+        if data.hasNextPage
+            a(href="/home?search="+searchName+"&page="+(data.nextPage-1)) Next page 
+    else 
+        if data.hasPrevPage 
+            a(href="/home?page="+(data.prevPage-1)) Previous Page
+        if data.hasNextPage
+            a(href="/home?page="+(data.nextPage-1)) Next page 

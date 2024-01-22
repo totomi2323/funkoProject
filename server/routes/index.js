@@ -16,5 +16,6 @@ router.post("/signup", adminController.sign_up_post)
 router.get("/logout", adminController.log_out)
 
 router.get("/home", checkLoggedIn, homeController.home_get );
+router.get("/home", checkLoggedIn, homeController.home_get)
 
 module.exports = router;
