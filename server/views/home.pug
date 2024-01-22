@@ -18,7 +18,7 @@ block content
                         img(src=item.imgUrl, alt=item.alt, style='max-width: 100px;')
                     td.table-cell
                         each series in item.series
-                            p.table-text= series
+                            p.table-text= series.name
                     td.table-cell
                         each user in item.available
                             p.table-text= user

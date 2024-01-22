@@ -1,6 +1,8 @@
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const Item = require("../models/item");
+const Series = require("../models/series")
+
 
 const getPagination = (page, size) => {
   const limit = size ? +size : 5;
@@ -19,7 +21,7 @@ exports.home_get = asyncHandler(async (req, res, next) => {
   const { limit, offset } = getPagination(page, size);
 
   
-Item.paginate(condition, { offset, limit })
+Item.paginate(condition,{ offset, limit, populate: 'series' })
     .then((data) => {
         console.log(data)
         res.render("home", { title: "Home page", user: req.user, data: data });
