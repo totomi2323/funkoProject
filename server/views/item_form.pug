@@ -1,0 +1,23 @@
+extends layout
+
+block content
+    h1.item-form-header Update item 
+    form.item-form(method='post' action='')
+        .form-group 
+            label.item-form-label(for="name") Item Name: 
+            input#name.form-control(type="text", placeholder="Name", name="name", required="true" , value=(undefined === item ? '' : item.name))
+        .form-group 
+            label.item-form-label(for="img_url") Image Url: 
+            input#imgUrl.form-control(type="text", placeholder="imgUrl" name="imgUrl", required="true", value = (undefined === item ? '' : item.imgUrl))
+        .form-group 
+            label.item-form-label(for="series") Series: 
+            for series in item.series 
+                ul
+                    li #{series.name}
+        .form-group
+            label.item-form-label(for="price") Price: 
+            input#price.form-control(type=number, name="price", required="true" min=0 max=1200 value=(undefined === item ? 0 : item.price))
+        .form-group 
+            label.item-form-label(for="alt") Alt name: 
+            input#alt.form-control(type="text", placeholder="Alt name", required="true" name="alt", value=(undefined === item ? '' : item.alt))
+        button.updateButton(type="submit") Update

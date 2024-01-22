@@ -3,7 +3,7 @@ extends layout
 block content
     .searchBox
         form.searchForm(method="GET" action='' )
-                input#search.searchInput(type="text" , placeholder="Search..." name="search"  required="true" value = searchName ? searchName : "")
+                input.searchInput(type="text" , placeholder="Search..." name="search"  required="true" value = searchName ? searchName : "")
         button.searchButton(type="submit") Search
     table.table
         thead
@@ -14,6 +14,7 @@ block content
                 th.table-header Available
                 th.table-header Price
                 th.table-header Alt
+                th.table-header Edit
         tbody
             each item in data.docs
                 tr.table-row
@@ -28,13 +29,16 @@ block content
                             p.table-text= user
                     td.table-cell.table-number= item.price
                     td.table-cell.table-text= item.alt
-    if searchName                
-        if data.hasPrevPage 
-            a(href="/home?search="+searchName+"&page="+(data.prevPage-1)) Previous Page
-        if data.hasNextPage
-            a(href="/home?search="+searchName+"&page="+(data.nextPage-1)) Next page 
-    else 
-        if data.hasPrevPage 
-            a(href="/home?page="+(data.prevPage-1)) Previous Page
-        if data.hasNextPage
-            a(href="/home?page="+(data.nextPage-1)) Next page 
+                    td.table-cell 
+                        a(href="/update/"+item._id) Update
+    .nextPrevButtons 
+        if searchName                
+            if data.hasPrevPage 
+                a.navigationButtons.nextButton(href="/home?search="+searchName+"&page="+(data.prevPage-1)) Previous Page
+            if data.hasNextPage
+                a.navigationButtons.prevButton(href="/home?search="+searchName+"&page="+(data.nextPage-1)) Next page 
+        else 
+            if data.hasPrevPage 
+                a.navigationButtons.nextButton(href="/home?page="+(data.prevPage-1)) Previous Page
+            if data.hasNextPage
+                a.navigationButtons.prevButton(href="/home?page="+(data.nextPage-1)) Next page 
