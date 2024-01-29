@@ -1,7 +1,7 @@
 extends layout
 
 block content
-    h1.item-form-header Update item 
+    h1.item-form-header #{title}
     form.item-form(method='post' action='')
         .form-group 
             label.item-form-label(for="name") Item Name: 
@@ -10,7 +10,8 @@ block content
             label.item-form-label(for="imgUrl") Image Url: 
             input#imgUrl.form-control(type="text", placeholder="imgUrl" name="imgUrl", required="true", value = (undefined === item ? '' : item.imgUrl))
         .form-group 
-            label.item-form-label Series: 
+            label.item-form-label Series:
+            if item
                 for series in item.series 
                     ul.checkBoxList
                         li.checkBoxListElement
@@ -28,7 +29,10 @@ block content
         .form-group 
             label.item-form-label(for="alt") Alt name: 
             input#alt.form-control(type="text", placeholder="Alt name", required="true" name="alt", value=(undefined === item ? '' : item.alt))
-        button.updateButton(type="submit") Update
+        button.updateButton(type="submit") Submit
+        if item
+            a.updateButton(href=item.url+"/delete") Delete
+  
     .searchBox
         form.searchForm(method="GET" action="")
             input.searchInput(type="text" , placeholder="Search..." name="search"  required="true" )
