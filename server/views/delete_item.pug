@@ -1,0 +1,9 @@
+extends layout 
+
+block content
+    p Would you really like to delete the following item?
+    p #{item.name}
+    form(method='POST' action='')
+      div.form-group
+        input#itemId.form-control(type='hidden',name='itemId', required='true', value=item._id )
+      button.btn.btn-primary(type='submit') Delete

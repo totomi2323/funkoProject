@@ -84,6 +84,16 @@ exports.get_update_item = asyncHandler(async (req, res, next) => {
     user: req.user,
   });
 });
+exports.get_delete_item = asyncHandler(async (req,res,next) => {
+    let deleteItem = await Item.findById(req.params.id).exec();
+
+    res.render("delete_item", {user: req.user, item: deleteItem})
+})
+
+exports.post_delete_item = asyncHandler(async (req,res,next) => {
+    await Item.findByIdAndDelete(req.body.itemId);
+    res.redirect("/home")
+})
 
 exports.post_update_item = [
   (req, res, next) => {

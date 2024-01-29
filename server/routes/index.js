@@ -21,6 +21,9 @@ router.get("/home", checkLoggedIn, homeController.home_get );
 router.get("/item/create", checkLoggedIn , itemController.get_create_item)
 router.post("/item/create", checkLoggedIn , itemController.post_create_item)
 
+router.get("/item/:id/delete", checkLoggedIn, itemController.get_delete_item)
+router.post("/item/:id/delete", checkLoggedIn, itemController.post_delete_item)
+
 router.get("/item/:id/update" , checkLoggedIn , itemController.get_update_item)
 router.post("/item/:id/update" , checkLoggedIn , itemController.post_update_item)
 
