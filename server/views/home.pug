@@ -4,7 +4,7 @@ block content
     .searchBox
         form.searchForm(method="GET" action='' )
                 input.searchInput(type="text" , placeholder="Search..." name="search"  required="true" value = searchName ? searchName : "")
-        button.searchButton(type="submit") Search
+                button.searchButton(type="submit") Search
     table.table
         thead
             tr
@@ -30,7 +30,7 @@ block content
                     td.table-cell.table-number= item.price
                     td.table-cell.table-text= item.alt
                     td.table-cell 
-                        a(href="/update/"+item._id) Update
+                        a(href=item.url+"/update") Update
     .nextPrevButtons 
         if searchName                
             if data.hasPrevPage 

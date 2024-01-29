@@ -7,13 +7,21 @@ block content
             label.item-form-label(for="name") Item Name: 
             input#name.form-control(type="text", placeholder="Name", name="name", required="true" , value=(undefined === item ? '' : item.name))
         .form-group 
-            label.item-form-label(for="img_url") Image Url: 
+            label.item-form-label(for="imgUrl") Image Url: 
             input#imgUrl.form-control(type="text", placeholder="imgUrl" name="imgUrl", required="true", value = (undefined === item ? '' : item.imgUrl))
         .form-group 
-            label.item-form-label(for="series") Series: 
-            for series in item.series 
-                ul
-                    li #{series.name}
+            label.item-form-label Series: 
+                for series in item.series 
+                    ul.checkBoxList
+                        li.checkBoxListElement
+                            label(for=series._id) #{series.name}
+                            input.checkBoxStyle(type="checkbox" id=series._id value=series._id name="series"  checked = true)            
+            if searchedSeries 
+                for series in searchedSeries 
+                    ul.checkBoxList
+                        li.checkBoxListElement
+                            label(for=series._id) #{series.name}
+                            input.checkBoxStyle(type="checkbox" id=series._id value=series._id name="series"  checked = false)
         .form-group
             label.item-form-label(for="price") Price: 
             input#price.form-control(type=number, name="price", required="true" min=0 max=1200 value=(undefined === item ? 0 : item.price))
@@ -21,3 +29,11 @@ block content
             label.item-form-label(for="alt") Alt name: 
             input#alt.form-control(type="text", placeholder="Alt name", required="true" name="alt", value=(undefined === item ? '' : item.alt))
         button.updateButton(type="submit") Update
+    .searchBox
+        form.searchForm(method="GET" action="")
+            input.searchInput(type="text" , placeholder="Search..." name="search"  required="true" )
+            button.searchButton(type="submit") Search series
+    if errors
+        ul
+        for error in errors
+            li!= error.msg

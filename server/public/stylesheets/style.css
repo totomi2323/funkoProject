@@ -314,3 +314,8 @@ a.navHref.logout:hover {
 .updateButton:hover {
   background-color: #2980b9;
 }
+
+label,input{
+  display: inline-block;
+  vertical-align: middle;
+}

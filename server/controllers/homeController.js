@@ -23,7 +23,6 @@ exports.home_get = asyncHandler(async (req, res, next) => {
   
 Item.paginate(condition,{ offset, limit, populate: 'series' })
     .then((data) => {
-        console.log(data)
         res.render("home", { title: "Home page", user: req.user, data: data , searchName: search});
     })
     .catch((err) => {

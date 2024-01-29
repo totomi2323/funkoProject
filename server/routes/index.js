@@ -19,6 +19,9 @@ router.get("/logout", adminController.log_out)
 router.get("/home", checkLoggedIn, homeController.home_get );
 
 
-router.get("/update/:id" , checkLoggedIn , itemController.get_update_item)
+router.get("/item/:id/update" , checkLoggedIn , itemController.get_update_item)
+router.post("/item/:id/update" , checkLoggedIn , itemController.post_update_item)
+
+router.get("/item/create", checkLoggedIn , itemController.get_create_item)
 
 module.exports = router;
