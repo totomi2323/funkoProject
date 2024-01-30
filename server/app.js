@@ -6,16 +6,14 @@ const logger = require('morgan');
 const mongoose = require("mongoose");
 
 require("dotenv").config()
-
+const localLogin = require("./functions/adminLogin.js")
 const indexRouter = require("./routes/index.js");
 const app = express();
 const cors = require('cors')
-
 const session = require("express-session");
 const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
-const bcrypt = require("bcryptjs");
-const Admin = require("./models/admin.js")
+const GoogleStrategy = require("passport-google-oauth20").Strategy
+const User = require("./models/user")
 
 mongoose.set("strictQuery", false);
 
@@ -38,7 +36,7 @@ app.use(session({ secret: process.env.SESSION_KEY, resave: false, saveUninitiali
   } }));
 app.use(passport.initialize());
 app.use(passport.session());
-
+ 
 
 
 app.use(logger('dev'));
@@ -71,37 +69,34 @@ app.use((req, res, next) => {
   next();
 });
 
-passport.use(
-  new LocalStrategy(async (username, password, done) => {
-    try {
-      const admin = await Admin.findOne({ name: username });
-      if (!admin) {
-        req.session.message = [];
-        return done(null, false, { message: "Incorrect username or password" });
-      } else {
-        const match = await bcrypt.compare(password, admin.password);
-        if (!match) {
-          return done(null, false, { message: "Incorrect username or password" });
-        }
-        return done(null, admin);
-      }
-    } catch (err) { 
-      return done(err);
-    }
-  })
-);
-
-passport.serializeUser((admin, done) => {
-  done(null, admin.id);
-});
-
-passport.deserializeUser(async (id, done) => {
-  try {
-    const admin = await Admin.findById(id);
-    done(null, admin);
-  } catch (err) {
-    done(err);
-  }
-});
 
 module.exports = app;
+
+
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_APP_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: 'http://localhost:5000/auth/google/callback'
+},
+(accessToken, refreshToken, profile, done) => {
+  console.log(profile)
+  let newUser =   new User({
+    googleId: profile.id,
+    name: profile.displayName,
+    email: profile.emails[0],
+    wishlist: [],
+    collection: [],
+    sale: [],
+  }).save();
+  // Validate the user based on the provided Google profile information
+  // Save user information to the database or session if needed
+  return done(null, profile);
+}
+));
+app.post('/auth/google', passport.authenticate('google-token', { session: false }), (req, res) => {
+  res.json({ user: req.user });
+});
+app.post('/google/logout', (req, res) => {
+  req.logout();
+  res.status(200).json({ message: 'Logged out successfully' });
+});

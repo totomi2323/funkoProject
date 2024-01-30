@@ -3,6 +3,7 @@ import NavBar from "./NavBar"
 import Login from "./Login"
 import Home from "./Home"
 import Wishlist from "./Wishlist"
+import Register from "./Register";
 
 import { Children } from "react";
 
@@ -23,6 +24,10 @@ const Router = () => {
                 {
                     path:"/wishlist",
                     element:<Wishlist/>
+                },
+                {
+                    path:"/register",
+                    element:<Register/>
                 }
             ]
         }

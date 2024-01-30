@@ -8,6 +8,7 @@ const handleSubmit = async (e) => {
 const NavBar = ()  => {
 return (
     <div className="navbar">
+        <p>Logo</p>
         <Link className="homeLink" to={"/"}>Home</Link>
         <form action={"#"} className="searchForm" onSubmit={handleSubmit}>
             <label className="searchItemLabel" htmlFor="searchItem"></label>

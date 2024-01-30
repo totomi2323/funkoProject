@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import GoogleAuthButton from "./GoogleAuthButton";
 
-const Login = ()  => {
-
-    
+const Register = ()  => {
 return (
     <div>
     <h1>Login/Register</h1>
@@ -13,11 +9,12 @@ return (
         <input type={"text"} name="email" required ></input>
         <label htmlFor="password">Password:</label>
         <input type={"password"} name="password" required></input>
+        <label htmlFor="confirmPassword">Confirm password:</label>
+        <input type={"password"} name="confirmPassword" required></input>
+
     </form>
-    <Link to="/register">Create account</Link>
-    <GoogleAuthButton/>
     </div>
 )
 }
 
-export default Login;
+export default Register;
