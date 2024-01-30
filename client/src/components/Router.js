@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import NavBar from "./NavBar"
 import Login from "./Login"
 import Home from "./Home"
+import Wishlist from "./Wishlist"
 
 import { Children } from "react";
 
@@ -18,6 +19,10 @@ const Router = () => {
                 {
                     path:"/login",
                     element:<Login/>
+                },
+                {
+                    path:"/wishlist",
+                    element:<Wishlist/>
                 }
             ]
         }
