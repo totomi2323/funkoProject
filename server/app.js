@@ -7,7 +7,11 @@ const mongoose = require("mongoose");
 
 require("dotenv").config()
 const localLogin = require("./functions/adminLogin.js")
+
 const indexRouter = require("./routes/index.js");
+const apiRouter = require("./routes/api.js")
+
+
 const app = express();
 const cors = require('cors')
 const session = require("express-session");
@@ -46,6 +50,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/api', apiRouter)
 
 
 // catch 404 and forward to error handler
@@ -80,14 +85,15 @@ passport.use(new GoogleStrategy({
 },
 (accessToken, refreshToken, profile, done) => {
   console.log(profile)
-  let newUser =   new User({
+ /* let newUser =   new User({
     googleId: profile.id,
     name: profile.displayName,
     email: profile.emails[0],
     wishlist: [],
     collection: [],
     sale: [],
-  }).save();
+  }).save();*/
+
   // Validate the user based on the provided Google profile information
   // Save user information to the database or session if needed
   return done(null, profile);
