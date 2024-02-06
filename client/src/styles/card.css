@@ -21,7 +21,9 @@
   .itemCard:hover {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   }
-  
+  .descriptionContainer {
+    padding: 8px;
+  }
   .itemImageContainer {
     height: 200px;
     overflow: hidden;
@@ -30,7 +32,7 @@
   .itemImage {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit:contain;
   }
   
   .itemName {
@@ -51,7 +53,7 @@
   }
   
   /* Style for when there is no series */
-  .itemCard > :last-child {
+  .descriptionContainer > :last-child {
     font-style: italic;
     color: #888;
     margin: 10px 0;

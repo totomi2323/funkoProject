@@ -7,18 +7,22 @@ const Card = (props) => {
   return (
     <div className="itemCard" alt={item.alt}>
       <div className="itemImageContainer">
-        <img className="itemImage" src={item.imgUrl}></img>
+        {item.imgUrl !== "undefined" ? (<> <img className="itemImage" src={item.imgUrl}></img></>) : (<> No Image Available</>)}
+       
       </div>
-      <p className="itemName">{item.name}</p>
-      {item.series !== "undefined" ? (
+      <div className="descriptionContainer">
+        <p className="itemName">{item.name}</p>
+        {item.series !== "undefined" ? (
         <ul className="seriesListContainer">
           {item.series.map((ser, i) => {
-            return <li className="seriesListElement"> {ser.name}</li>;
+            return <li key={i} className="seriesListElement"> {ser.name}</li>;
           })}
         </ul>
       ) : (
         <>No Series</>
       )}
+      </div>
+ 
     </div>
   );
 };

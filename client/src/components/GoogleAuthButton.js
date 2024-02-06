@@ -9,7 +9,9 @@ const GoogleAuthButton = () => {
     // Send a request to the backend to clear the session
     fetch("http://localhost:5000/google/logout", {
       method: "POST",
+      mode:'cors',
       headers: {
+        'Accept': 'application/json',
         "Content-Type": "application/json",
       },
     })
@@ -21,9 +23,13 @@ const GoogleAuthButton = () => {
       });
   };
   const responseGoogle = (response) => {
+    const {profileObj} = response;
+    console.log(response)
     fetch("http://localhost:5000/auth/google", {
       method: "POST",
+      mode: 'cors',
       headers: {
+        'Accept': 'application/json',
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ accessToken: response.accessToken }),
@@ -40,20 +46,25 @@ const GoogleAuthButton = () => {
 
   return (
     <div>
-      <p>Welcome, you are logged in!</p>
-      <GoogleLogout
-        clientId="486687335318-1b64alget6tgq26obrussaktea0ke9el.apps.googleusercontent.com"
-        buttonText="Logout"
-        onLogoutSuccess={logout}
-      />
-
-      <GoogleLogin
-        clientId="486687335318-1b64alget6tgq26obrussaktea0ke9el.apps.googleusercontent.com"
-        buttonText="Login with Google"
-        onSuccess={responseGoogle}
-        onFailure={responseGoogle}
-        cookiePolicy={"single_host_origin"}
-      />
+      {loggedIn ? (
+        <>
+          <GoogleLogout
+            clientId="486687335318-1b64alget6tgq26obrussaktea0ke9el.apps.googleusercontent.com"
+            buttonText="Logout"
+            onLogoutSuccess={logout}
+          />
+        </>
+      ) : (
+        <>
+          <GoogleLogin
+            clientId="486687335318-1b64alget6tgq26obrussaktea0ke9el.apps.googleusercontent.com"
+            buttonText="Login with Google"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={"single_host_origin"}
+          />
+        </>
+      )}
     </div>
   );
 };
