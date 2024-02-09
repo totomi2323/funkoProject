@@ -10,7 +10,8 @@ const localLogin = require("./functions/adminLogin.js")
 
 const indexRouter = require("./routes/index.js");
 const apiRouter = require("./routes/api.js")
-
+const requestRouter = require("./routes/request.js");
+const authRouter = require("./routes/oauth");
 
 const app = express();
 const cors = require('cors')
@@ -51,6 +52,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/api', apiRouter)
+app.use('/oauth', authRouter);
+app.use('/request', requestRouter)
 
 
 // catch 404 and forward to error handler
@@ -101,8 +104,20 @@ passport.use(new GoogleStrategy({
 ));
 app.post('/auth/google', passport.authenticate('google-token', { session: false }), (req, res) => {
   res.json({ user: req.user });
+  console.log(req.user)
 });
 app.post('/google/logout', (req, res) => {
   req.logout();
   res.status(200).json({ message: 'Logged out successfully' });
+});
+
+app.get('/protected-route', (req, res) => {
+  if (req.session && req.session.passport && req.session.passport.user) {
+    // User is logged in
+    res.json({ message: 'User is logged in' , loggedIn: true });
+    console.log(req.session)
+  } else {
+    // User is not logged in
+    res.status(401).json({ message: 'Unauthorized' });
+  }
 });
