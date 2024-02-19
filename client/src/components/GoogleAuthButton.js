@@ -1,26 +1,36 @@
 import React from "react";
-import { GoogleLogin, GoogleLogout } from "react-google-login";
-import { useState , useEffect} from "react";
+import { useState, useEffect } from "react";
+import {
+  googleLogout,
+  GoogleOAuthProvider,
+  GoogleLogin,
+  useGoogleLogin,
+} from "@react-oauth/google";
 
 const GoogleAuthButton = () => {
+  const [loggedIn, setLoggedIn] = useState(false);
 
-  function navigate(url) {
-    window.location.href = url
-  }
-  async function auth() {
-    const response = await fetch('http://127.0.0.1:5000/request',
-    {method:'post'});
-    const data = await response.json();
-    console.log(data)
-    navigate(data.url)
-  }
- 
-  return ( 
+  const login = useGoogleLogin({
+    onSuccess: tokenResponse => console.log(tokenResponse),
+  });
+
+
+  return (
     <div>
-      <p>Google login button</p>
-      <button type="button" onClick={() => auth()}>
-        Google login button
-      </button>
+  
+        {loggedIn ? (
+          <button
+            onClick={() => {
+              googleLogout();
+              setLoggedIn(false);
+            }}
+          >
+            Logout
+          </button>
+        ) : (
+          <button onClick={()=> {login() ; setLoggedIn(true)}}>Login</button>
+        )}
+     
     </div>
   );
 };

@@ -3,6 +3,7 @@ const router = express.Router();
 const dotenv = require("dotenv");
 dotenv.config();
 const { OAuth2Client } = require("google-auth-library");
+const User = require("../models/user.js");
 
 async function getUserData(access_token) {
   const response = await fetch(
@@ -14,7 +15,6 @@ async function getUserData(access_token) {
 
 router.get("/", async function (req, res, next) {
   const code = req.query.code;
-  console.log(req.query);
   try {
     const redirectUrl = "http://127.0.0.1:5000/oauth";
     const oAuth2Client = new OAuth2Client(
@@ -27,14 +27,19 @@ router.get("/", async function (req, res, next) {
     await oAuth2Client.setCredentials(r.tokens);
     console.log("Tokens received");
     const user = oAuth2Client.credentials;
-    console.log("credentials", user);
-
     // await getUserData(user.access_token);
     const ticket = await oAuth2Client.verifyIdToken({idToken: user.id_token, audience: process.env.GOOGLE_APP_ID})
 
     const payload = ticket.getPayload();
-    payload.url = "127.0.0.1:3000"
-    res.json(payload)
+    console.log(ticket)
+    console.log("--------")
+    console.log(payload)
+    const newUser = await new User({
+      googleId: payload['sub'],
+      name:payload['name'],
+      email:payload['email'],
+    }).save()
+  
   } catch (err) {
     console.log(err)
     console.log("Error with signing in with google");
