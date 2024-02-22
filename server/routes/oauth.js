@@ -11,7 +11,7 @@ async function getUserData(access_token) {
   );
   const data = await response.json();
   console.log("data", data);
-}
+} 
 
 router.get("/", async function (req, res, next) {
   const code = req.query.code;

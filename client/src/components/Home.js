@@ -19,16 +19,10 @@ const Home = () => {
       });
     });
   }, [searchParams]);
-
+ 
   return (
     <>
-      <button
-        onClick={() => {
-          console.log(console.log(searchValue));
-        }}
-      >
-        Console
-      </button>
+      
       {typeof fetchedData.data !== "undefined" ? (
         <div>
           <div className="itemCardContainer">
