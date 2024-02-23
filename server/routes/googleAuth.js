@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 const dotenv = require("dotenv");
 dotenv.config();
+const jwt = require("jsonwebtoken");
+
 const { OAuth2Client, UserRefreshClient } = require("google-auth-library");
-const redirectUrl = "http://127.0.0.1:5000/googleAuth";
 
 const oAuth2Client = new OAuth2Client(
   process.env.GOOGLE_APP_ID,
@@ -13,14 +14,39 @@ const oAuth2Client = new OAuth2Client(
 
 router.post("/", async (req, res) => {
   const code = req.body.code;
-  console.log("Code:");
-  console.log(code); 
+  console.log("User::");
 
-   const tokens = await oAuth2Client.getToken(code);
-  console.log(tokens);
+  const r = await oAuth2Client.getToken(code);
 
-  res.json(tokens);
-}); 
+  await oAuth2Client.setCredentials(r.tokens);
+  const user = oAuth2Client.credentials;
+  const ticket = await oAuth2Client.verifyIdToken({
+    idToken: user.id_token,
+    audience: process.env.GOOGLE_APP_ID,
+  });
+  const payload = ticket.getPayload();
+
+  console.log(payload);
+  const jwtToken = jwt.sign({ userId: payload.sub }, process.env.SESSION_KEY);
+  console.log("JWT TOKEN:"+ jwtToken)
+  res.json({ token: jwtToken });
+});
+
+router.get("/protected", verifyToken, (req, res) => {
+  console.log("Access granted!")
+  res.json({ message: "Access granted for user ID: " + req.userId });
+});
+
+function verifyToken(req, res, next) {
+  const token = req.headers.authorization && req.headers.authorization.split(' ')[1];
+  if (!token) return res.status(401).json({ error: 'Unauthorized' });
+
+  jwt.verify(token, process.env.SESSION_KEY, (err, decoded) => {
+    if (err) return res.status(401).json({ error: 'Invalid token' });
+    req.userId = decoded.userId;
+    next();
+  });
+}
 
 router.post("/refresh-token", async (req, res) => {
   const user = new UserRefreshClient(

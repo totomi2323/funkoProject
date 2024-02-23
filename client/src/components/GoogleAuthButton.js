@@ -4,10 +4,19 @@ import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 
 const GoogleAuthButton = () => {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [token, setToken] = useState()
+  function setUserToken(userToken) {
+    sessionStorage.setItem('token', JSON.stringify(userToken))
+  }
+  const getToken =() =>{
+    const tokenString = sessionStorage.getItem('token')
+    const userToken = JSON.parse(tokenString)
+    return userToken?.token
+} 
+  
 
   const login = useGoogleLogin({
     onSuccess: async ({ code }) => {
-      console.log(code);
       setLoggedIn(true);
       const tokens = await fetch("http://127.0.0.1:5000/googleAuth", {
         method: "POST",
@@ -17,8 +26,9 @@ const GoogleAuthButton = () => {
         body: JSON.stringify({ code }),
       }).then((response) => response.json());
       console.log(tokens);
+      
     },
-    redirect_uri: "http://127.0.0.1:5000/googleAuth" ,
+    redirect_uri: "postmessage" ,
     flow: "auth-code",
   });
 
