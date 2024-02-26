@@ -26,10 +26,17 @@ router.post("/", async (req, res) => {
   });
   const payload = ticket.getPayload();
 
+  let userDetails = {
+    given_name: payload.given_name,
+    family_name : payload.family_name,
+    uid: payload.sub,
+    picture: payload.picture,
+  }
+
   console.log(payload);
   const jwtToken = jwt.sign({ userId: payload.sub }, process.env.SESSION_KEY);
   console.log("JWT TOKEN:"+ jwtToken)
-  res.json({ token: jwtToken });
+  res.json({ token: jwtToken , userDetails});
 });
 
 router.get("/protected", verifyToken, (req, res) => {

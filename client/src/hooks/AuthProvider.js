@@ -18,16 +18,18 @@ const AuthContext = createContext();
     const login = useGoogleLogin({
       onSuccess: async ({ code }) => {
         setLoggedIn(true);
-        const tokens = await fetch('http://127.0.0.1:5000/googleAuth', {
+        const data = await fetch('http://127.0.0.1:5000/googleAuth', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ code }),
         }).then((response) => response.json());
-        localStorage.setItem("site", tokens.token);
+
+        localStorage.setItem("token", data.token);
         navigate("/");
-        setToken(tokens)
+        setToken(data.token)
+        console.log(data.userDetails)
       },
       redirect_uri: 'postmessage',
       flow: 'auth-code',
@@ -37,6 +39,7 @@ const AuthContext = createContext();
       googleLogout();
       setLoggedIn(false);
       setToken("")
+      localStorage.removeItem("token")
     };
   
     return (
