@@ -4,6 +4,7 @@ import Login from "./Login";
 import Home from "./Home";
 import Wishlist from "./Wishlist";
 import Register from "./Register";
+import AuthProvider from "../hooks/AuthProvider";
 
 import { Children } from "react";
 
@@ -33,13 +34,15 @@ const Router = () => {
     },
   ]);
   return <RouterProvider router={router} />;
-};
+}; 
 
 const NavBarWrapper = () => {
   return (
     <>
-      <NavBar />
-      <Outlet />
+      <AuthProvider>
+        <NavBar />
+        <Outlet />
+      </AuthProvider>
     </>
   );
 };

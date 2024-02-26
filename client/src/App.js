@@ -1,12 +1,13 @@
 import React from "react";
 import Router from "./components/Router";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import AuthProvider from "../src/hooks/AuthProvider"
 
 function App() {
   return (
     <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
       <div>
-        <Router />
+          <Router />
       </div>
     </GoogleOAuthProvider>
   );
