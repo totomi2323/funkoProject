@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/card.css"
+import LikeButton from "./LikeButton"
 
 const Card = (props) => {
   const { item } = props;
@@ -21,6 +22,7 @@ const Card = (props) => {
       ) : (
         <>No Series</>
       )}
+      <LikeButton></LikeButton>
       </div>
  
     </div>
