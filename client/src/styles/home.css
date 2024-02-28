@@ -1,7 +1,6 @@
 .searchForm {
     display: flex; /* Use flexbox for layout */
     flex-direction: column;
-    align-items: center; /* Center items vertically */
     margin-bottom: 20px; /* Add some space below the form */
     margin-top: 10px;
     width: 30%;
@@ -29,4 +28,8 @@
   .searchButton:hover {
     background-color: #0056b3; /* Darker blue color on hover */
   }
-  
+  .homePage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }

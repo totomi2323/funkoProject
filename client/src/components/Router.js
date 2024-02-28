@@ -41,7 +41,7 @@ const NavBarWrapper = () => {
     <>
       <AuthProvider>
         <NavBar />
-        <Outlet />
+        <Outlet/>
       </AuthProvider>
     </>
   );

@@ -30,7 +30,7 @@ const Home = () => {
   return (
     <>
       {typeof fetchedData.data !== "undefined" ? (
-        <div>
+        <div className={"homePage"}>
           <form action={"/"} className="searchForm">
             <label className="searchItemLabel" htmlFor="searchItem"></label>
             <input
