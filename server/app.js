@@ -10,8 +10,6 @@ const localLogin = require("./functions/adminLogin.js")
 
 const indexRouter = require("./routes/index.js");
 const apiRouter = require("./routes/api.js")
-const requestRouter = require("./routes/request.js");
-const authRouter = require("./routes/oauth");
 const googleAuthRouter = require("./routes/googleAuth")
 
 const app = express();
@@ -53,8 +51,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/api', apiRouter)
-app.use('/oauth', authRouter);
-app.use('/request', requestRouter)
 app.use('/googleAuth', googleAuthRouter)
 
 

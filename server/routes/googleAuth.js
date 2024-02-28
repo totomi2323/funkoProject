@@ -3,6 +3,7 @@ const router = express.Router();
 const dotenv = require("dotenv");
 dotenv.config();
 const jwt = require("jsonwebtoken");
+const User = require("../models/user");
 
 const { OAuth2Client, UserRefreshClient } = require("google-auth-library");
 
@@ -14,7 +15,6 @@ const oAuth2Client = new OAuth2Client(
 
 router.post("/", async (req, res) => {
   const code = req.body.code;
-  console.log("User::");
 
   const r = await oAuth2Client.getToken(code);
 
@@ -28,28 +28,48 @@ router.post("/", async (req, res) => {
 
   let userDetails = {
     given_name: payload.given_name,
-    family_name : payload.family_name,
+    family_name: payload.family_name,
     uid: payload.sub,
     picture: payload.picture,
-  }
-
+  };
   console.log(payload);
   const jwtToken = jwt.sign({ userId: payload.sub }, process.env.SESSION_KEY);
-  console.log("JWT TOKEN:"+ jwtToken)
-  res.json({ token: jwtToken , userDetails});
+  console.log("JWT TOKEN:" + jwtToken);
+
+  let userExist = await User.findOne({ googleId: payload.sub }).collation({ locale: "en", strength: 2 })
+  .exec();
+  console.log("--------------")
+  console.log(userExist)
+  if (userExist) {
+    console.log("USER EXISTS");
+    const updateUserToken = await User.findByIdAndUpdate(userExist._id, {
+      token: jwtToken,
+    });
+  } else {
+    const newUser = await new User({
+      googleId: payload.sub,
+      name: payload.name,
+      email: payload.email,
+      token: jwtToken,
+    }).save();
+  
+  }
+
+  res.json({ token: jwtToken, userDetails });
 });
 
 router.get("/protected", verifyToken, (req, res) => {
-  console.log("Access granted!")
+  console.log("Access granted!");
   res.json({ message: "Access granted for user ID: " + req.userId });
 });
 
 function verifyToken(req, res, next) {
-  const token = req.headers.authorization && req.headers.authorization.split(' ')[1];
-  if (!token) return res.status(401).json({ error: 'Unauthorized' });
+  const token =
+    req.headers.authorization && req.headers.authorization.split(" ")[1];
+  if (!token) return res.status(401).json({ error: "Unauthorized" });
 
   jwt.verify(token, process.env.SESSION_KEY, (err, decoded) => {
-    if (err) return res.status(401).json({ error: 'Invalid token' });
+    if (err) return res.status(401).json({ error: "Invalid token" });
     req.userId = decoded.userId;
     next();
   });
