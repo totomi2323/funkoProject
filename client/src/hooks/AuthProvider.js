@@ -12,6 +12,7 @@ const AuthContext = createContext();
   const AuthProvider = ({ children }) => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [token, setToken] = useState("")
+    const [user, setUser] = useState(undefined)
 
     const navigate = useNavigate();
   
@@ -30,6 +31,7 @@ const AuthContext = createContext();
         navigate("/");
         setToken(data.token)
         console.log(data.userDetails)
+        setUser(data.userDetails)
       },
       redirect_uri: 'postmessage',
       flow: 'auth-code',
@@ -39,11 +41,12 @@ const AuthContext = createContext();
       googleLogout();
       setLoggedIn(false);
       setToken("")
+      setUser(undefined)
       localStorage.removeItem("token")
     };
   
     return (
-      <AuthContext.Provider value={{token, loggedIn, login, logout }}>
+      <AuthContext.Provider value={{token, loggedIn, user, login, logout }}>
         {children}
       </AuthContext.Provider>
     );

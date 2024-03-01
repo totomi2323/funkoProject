@@ -4,7 +4,7 @@ import LikeButton from "./LikeButton"
 import AddToCollection from "./AddToCollection";
 
 const Card = (props) => {
-  const { item } = props;
+  const { item, user} = props;
 
   return (
     <div className="itemCard" alt={item.alt}>
@@ -24,8 +24,8 @@ const Card = (props) => {
         <>No Series</>
       )}
       <div className="interactionButtons">
-        <LikeButton></LikeButton>
-        <AddToCollection></AddToCollection>
+        <LikeButton itemId ={item._id}/>
+        <AddToCollection/>
       </div>
       </div>
  

@@ -36,12 +36,10 @@ router.post("/", async (req, res) => {
   const jwtToken = jwt.sign({ userId: payload.sub }, process.env.SESSION_KEY);
   console.log("JWT TOKEN:" + jwtToken);
 
-  let userExist = await User.findOne({ googleId: payload.sub }).collation({ locale: "en", strength: 2 })
-  .exec();
-  console.log("--------------")
-  console.log(userExist)
+  let userExist = await User.findOne({ googleId: payload.sub })
+    .collation({ locale: "en", strength: 2 })
+    .exec();
   if (userExist) {
-    console.log("USER EXISTS");
     const updateUserToken = await User.findByIdAndUpdate(userExist._id, {
       token: jwtToken,
     });
@@ -52,7 +50,6 @@ router.post("/", async (req, res) => {
       email: payload.email,
       token: jwtToken,
     }).save();
-  
   }
 
   res.json({ token: jwtToken, userDetails });

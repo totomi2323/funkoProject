@@ -3,13 +3,17 @@ import Card from "./subComponents/Card";
 import NextPrevButtons from "./subComponents/NextPrevButtons";
 import "../styles/card.css";
 import "../styles/home.css"
+import { useAuth } from "../hooks/AuthProvider";
 
 import { useSearchParams, Link } from "react-router-dom";
 
 const Home = () => {
-  const [fetchedData, setFetchedData] = useState([]);
 
+  let {user} = useAuth();
+
+  const [fetchedData, setFetchedData] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
+
   let searchValue = searchParams.get("searchItem");
   let pageValue = searchParams.get("page");
 
@@ -46,7 +50,7 @@ const Home = () => {
           </form>
           <div className="itemCardContainer">
             {fetchedData.data.docs.map((item, i) => {
-              return <Card key={i} item={item} />;
+              return <Card key={i} item={item}/>;
             })}
           </div>
           <NextPrevButtons data={fetchedData.data} />
