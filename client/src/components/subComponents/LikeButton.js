@@ -1,14 +1,22 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/like.css";
 import { useAuth } from "../../hooks/AuthProvider";
-import { redirect } from "react-router-dom";
 
 const LikeButton = (props) => {
   const { itemId } = props;
   let { user } = useAuth();
 
+  const [checked, setChecked]  = useState(false);
+
+  useEffect(() => {
+    if (user) { for (let i=0; i<= user.wishlist.length-1; i++ ) {
+      if (user.wishlist[i] === itemId) {
+        setChecked(true)
+      }
+    }}
+  },[])
+
   const handleLikeDislike = (e) => {
-    console.log(e.target.checked);
     let newValue = e.target.checked;
 
     if (!user) {
@@ -16,9 +24,6 @@ const LikeButton = (props) => {
     } else {
       if (newValue) {
         //add to user wishlist
-        console.log(user.uid);
-        console.log("-----");
-        console.log(itemId);
         let data = {
           userGoogleId: user.uid,
           itemId: itemId,
@@ -32,7 +37,10 @@ const LikeButton = (props) => {
           },
           body: JSON.stringify(data),
         });
+        user.wishlist.push(itemId)
+        setChecked(true)
       } else {
+        setChecked(false)
         //remove from user wishlist
       }
     }
@@ -45,6 +53,7 @@ const LikeButton = (props) => {
         className="checkbox"
         id="likeButton"
         onClick={handleLikeDislike}
+        checked={checked}
       ></input>
       <div className="svg-container">
         <svg

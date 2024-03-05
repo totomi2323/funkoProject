@@ -9,7 +9,7 @@ import { useSearchParams, Link } from "react-router-dom";
 
 const Home = () => {
 
-  let {user} = useAuth();
+  let {user, loggedIn} = useAuth();
 
   const [fetchedData, setFetchedData] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -18,6 +18,9 @@ const Home = () => {
   let pageValue = searchParams.get("page");
 
   useEffect(() => {
+    console.log(fetchedData)
+    console.log(user)
+    console.log(loggedIn)
     fetch(
       "http://192.168.0.31:5000/api/home?" +
         new URLSearchParams({

@@ -40,6 +40,7 @@ router.post("/", async (req, res) => {
     .collation({ locale: "en", strength: 2 })
     .exec();
   if (userExist) {
+    userDetails.wishlist = userExist.wishlist;
     const updateUserToken = await User.findByIdAndUpdate(userExist._id, {
       token: jwtToken,
     });

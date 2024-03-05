@@ -30,7 +30,6 @@ const AuthContext = createContext();
         localStorage.setItem("token", data.token);
         navigate("/");
         setToken(data.token)
-        console.log(data.userDetails)
         setUser(data.userDetails)
       },
       redirect_uri: 'postmessage',
