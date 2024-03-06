@@ -40,18 +40,24 @@ exports.like_item = asyncHandler( async(req,res,next) => {
   const updateUser = await User.findOne({googleId : data.userGoogleId})
   const item = await Item.findById(data.itemId);
 
-  let alreadyLiked = updateUser.wishlist.includes(item._id);
+  let isItLiked = updateUser.wishlist.includes(item._id);
 
-  if (alreadyLiked) {
-    console.log("This item have been already liked")
-    console.log(alreadyLiked)
-  } else {
-    updateUser.wishlist.push(item._id)
-    await updateUser.save();
-    console.log("This item have been added to the wishlist")
-    console.log(alreadyLiked)
+  if (!isItLiked) {
+    await User.updateOne({googleId : data.userGoogleId}, {$push: {wishlist: item._id}})
   }
-
-
-  console.log("succes")
+ 
 })
+
+exports.dislike_item = asyncHandler(async(req,res,next) => {
+  const data = req.body;
+
+  const updateUser = await User.findOne({googleId : data.userGoogleId})
+  const item = await Item.findById(data.itemId);
+
+  let isItLiked = updateUser.wishlist.includes(item._id);
+
+  if (isItLiked) {
+   await User.updateOne({googleId : data.userGoogleId}, {$pull: {wishlist: item._id}})
+  }
+})
+

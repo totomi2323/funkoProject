@@ -1,10 +1,26 @@
 const express = require('express');
 const router = express.Router();
+const jwt = require("jsonwebtoken");
 
 const apiController = require("../controllers/apiController")
 
 router.get("/home", apiController.get_items )
 
-router.post("/wishlist/add" ,apiController.like_item)
+router.post("/wishlist/add", verifyToken ,apiController.like_item)
+router.post("/wishlist/remove", verifyToken ,apiController.dislike_item)
 
 module.exports = router; 
+
+
+function verifyToken(req, res, next) {
+    const token =
+      req.headers.authorization && req.headers.authorization.split(" ")[1];
+    if (!token) return res.status(401).json({ error: "Unauthorized" });
+  
+    jwt.verify(token, process.env.SESSION_KEY, (err, decoded) => {
+      if (err) return res.status(401).json({ error: "Invalid token" });
+      req.userId = decoded.userId;
+      console.log("Succes verification")
+      next();
+    });
+  }

@@ -8,7 +8,7 @@ const Card = (props) => {
 
 
   return (
-    <div className="itemCard" alt={item.alt}>
+    <div className="itemCard" alt={item.alt} key={item._id}>
       <div className="itemImageContainer">
         {item.imgUrl !== "undefined" ? (<> <img className="itemImage" src={item.imgUrl}></img></>) : (<> No Image Available</>)}
        
@@ -25,8 +25,8 @@ const Card = (props) => {
         <>No Series</>
       )}
       <div className="interactionButtons">
-        <LikeButton itemId={item._id} key={item._id}/>
-        <AddToCollection key={item._id}/>
+        <LikeButton itemId={item._id} />
+        <AddToCollection />
       </div>
       </div>
  

@@ -38,6 +38,7 @@ const AuthContext = createContext();
   
     const logout = () => {
       googleLogout();
+      navigate("/");
       setLoggedIn(false);
       setToken("")
       setUser(undefined)

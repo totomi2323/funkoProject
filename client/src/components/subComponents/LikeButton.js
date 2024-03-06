@@ -1,26 +1,36 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/like.css";
 import { useAuth } from "../../hooks/AuthProvider";
+import {useNavigate} from "react-router-dom"
 
 const LikeButton = (props) => {
   const { itemId } = props;
-  let { user } = useAuth();
+  let { user, token } = useAuth();
 
-  const [checked, setChecked]  = useState(false);
+  const [checked, setChecked] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) { for (let i=0; i<= user.wishlist.length-1; i++ ) {
-      if (user.wishlist[i] === itemId) {
-        setChecked(true)
+
+    //not working as supposed to because of user.wishlist can't be read when not logged in
+    if (user) {
+      if (user.wishlist.length !== 0)
+      for (let i = 0; i <= user.wishlist.length - 1; i++) {
+        if (user.wishlist[i] === itemId) {
+          setChecked(true);
+        }
       }
-    }}
-  },[])
+    } else {
+      
+    }
+  }, []);
 
   const handleLikeDislike = (e) => {
     let newValue = e.target.checked;
 
     if (!user) {
-
+      navigate("/login");
     } else {
       if (newValue) {
         //add to user wishlist
@@ -34,14 +44,32 @@ const LikeButton = (props) => {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
+            "Authorization" : `Bearer ${token}`
           },
           body: JSON.stringify(data),
         });
-        user.wishlist.push(itemId)
-        setChecked(true)
+        user.wishlist.push(itemId);
+        setChecked(true);
       } else {
-        setChecked(false)
+        setChecked(false);
         //remove from user wishlist
+        let data = {
+          userGoogleId: user.uid,
+          itemId: itemId,
+        };
+        fetch("http://192.168.0.31:5000/api/wishlist/remove", {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "Authorization" : `Bearer ${token}`
+          },
+          body: JSON.stringify(data),
+        });
+
+        let index = user.wishlist.indexOf(itemId);
+        user.wishlist.splice(index, 1);
       }
     }
   };
@@ -54,6 +82,7 @@ const LikeButton = (props) => {
         id="likeButton"
         onClick={handleLikeDislike}
         checked={checked}
+        readOnly
       ></input>
       <div className="svg-container">
         <svg

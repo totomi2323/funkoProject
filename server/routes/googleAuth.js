@@ -31,6 +31,7 @@ router.post("/", async (req, res) => {
     family_name: payload.family_name,
     uid: payload.sub,
     picture: payload.picture,
+    wishlist: []
   };
   console.log(payload);
   const jwtToken = jwt.sign({ userId: payload.sub }, process.env.SESSION_KEY);
@@ -40,7 +41,9 @@ router.post("/", async (req, res) => {
     .collation({ locale: "en", strength: 2 })
     .exec();
   if (userExist) {
-    userDetails.wishlist = userExist.wishlist;
+    if (userExist.wishlist) {
+      userDetails.wishlist = userExist.wishlist
+    }
     const updateUserToken = await User.findByIdAndUpdate(userExist._id, {
       token: jwtToken,
     });
