@@ -6,8 +6,12 @@ const apiController = require("../controllers/apiController")
 
 router.get("/home", apiController.get_items )
 
+router.get("/wishlist/:id", verifyToken, apiController.get_wishlist) 
+
 router.post("/wishlist/add", verifyToken ,apiController.like_item)
 router.post("/wishlist/remove", verifyToken ,apiController.dislike_item)
+
+
 
 module.exports = router; 
 

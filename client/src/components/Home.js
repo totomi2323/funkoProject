@@ -24,7 +24,7 @@ const Home = () => {
     fetch(
       "http://192.168.0.31:5000/api/home?" +
         new URLSearchParams({
-          search: searchValue ? searchValue : "",
+          search: searchValue ? searchValue : "", 
           page: pageValue ? pageValue : "",
         })
     ).then((response) => {
@@ -37,14 +37,14 @@ const Home = () => {
   return (
     <>
       {typeof fetchedData.data !== "undefined" ? (
-        <div className={"homePage"}>
+        <div className="homePage">
           <form className="searchForm">
             <label className="searchItemLabel" htmlFor="searchItem"></label>
             <input
               className="searchItemInput"
               type={"text"}
               name="searchItem"
-              placeholder="Spider-man"
+              placeholder="Search..."
               required
               value={search}
               onChange={(e) => {

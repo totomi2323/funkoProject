@@ -7,6 +7,8 @@ const Card = (props) => {
   const { item} = props;
 
 
+    item.name = item.name.replace(/&amp;/g, '&');
+
   return (
     <div className="itemCard" alt={item.alt} key={item._id}>
       <div className="itemImageContainer">
