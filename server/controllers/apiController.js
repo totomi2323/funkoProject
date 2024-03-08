@@ -6,7 +6,7 @@ const Series = require("../models/series");
 const User = require("../models/user")
 
 const getPagination = (page, size) => {
-    const limit = size ? +size : 12;
+    const limit = size ? +size : 16;
     const offset = page ? page * limit : 0;
   
     return { limit, offset };
