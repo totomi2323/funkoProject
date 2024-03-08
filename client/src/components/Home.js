@@ -2,25 +2,25 @@ import React, { useEffect, useState } from "react";
 import Card from "./subComponents/Card";
 import NextPrevButtons from "./subComponents/NextPrevButtons";
 import "../styles/card.css";
-import "../styles/home.css"
+import "../styles/home.css";
 import { useAuth } from "../hooks/AuthProvider";
-
-import { useSearchParams, Link } from "react-router-dom";
+import { useSearchParams, Link, useNavigate } from "react-router-dom";
+import e from "cors";
 
 const Home = () => {
-
-  let {user, loggedIn} = useAuth();
+  let { user, loggedIn } = useAuth();
 
   const [fetchedData, setFetchedData] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const [search, setSearch] = useState("")
+
   let searchValue = searchParams.get("searchItem");
   let pageValue = searchParams.get("page");
+  const navigate = useNavigate()
 
   useEffect(() => {
-    console.log(fetchedData)
-    console.log(user)
-    console.log(loggedIn)
+    setSearch("")
     fetch(
       "http://192.168.0.31:5000/api/home?" +
         new URLSearchParams({
@@ -38,7 +38,7 @@ const Home = () => {
     <>
       {typeof fetchedData.data !== "undefined" ? (
         <div className={"homePage"}>
-          <form action={"/"} className="searchForm">
+          <form className="searchForm">
             <label className="searchItemLabel" htmlFor="searchItem"></label>
             <input
               className="searchItemInput"
@@ -46,14 +46,17 @@ const Home = () => {
               name="searchItem"
               placeholder="Spider-man"
               required
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value)
+                }}
             ></input>
-            <button className="searchButton" type="submit">
-              Search
-            </button>
+            <button className="searchButton" onClick={(e)=> {e.preventDefault(); navigate(`/?searchItem=${search}`)  }}>Search</button>
           </form>
+
           <div className="itemCardContainer">
             {fetchedData.data.docs.map((item, i) => {
-              return <Card key={i} item={item}/>;
+              return <Card key={i} item={item} />;
             })}
           </div>
           <NextPrevButtons data={fetchedData.data} />

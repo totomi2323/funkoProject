@@ -34,7 +34,7 @@ router.post("/", async (req, res) => {
     wishlist: []
   };
   console.log(payload);
-  const jwtToken = jwt.sign({ userId: payload.sub }, process.env.SESSION_KEY);
+  const jwtToken = jwt.sign({ payload },process.env.ACCESS_TOKEN_KEY, {expiresIn: '30m'});
   console.log("JWT TOKEN:" + jwtToken);
 
   let userExist = await User.findOne({ googleId: payload.sub })
@@ -53,8 +53,7 @@ router.post("/", async (req, res) => {
       name: payload.name,
       email: payload.email,
       token: jwtToken,
-    }).save();
-  }
+    }).save();  }
 
   res.json({ token: jwtToken, userDetails });
 });
@@ -69,7 +68,7 @@ function verifyToken(req, res, next) {
     req.headers.authorization && req.headers.authorization.split(" ")[1];
   if (!token) return res.status(401).json({ error: "Unauthorized" });
 
-  jwt.verify(token, process.env.SESSION_KEY, (err, decoded) => {
+  jwt.verify(token, process.env.ACCESS_TOKEN_KEY, (err, decoded) => {
     if (err) return res.status(401).json({ error: "Invalid token" });
     req.userId = decoded.userId;
     next();
@@ -77,13 +76,7 @@ function verifyToken(req, res, next) {
 }
 
 router.post("/refresh-token", async (req, res) => {
-  const user = new UserRefreshClient(
-    clientId,
-    clientSecret,
-    req.body.refreshToken
-  );
-  const { credentials } = await user.refreshAccessToken(); // optain new tokens
-  res.json(credentials);
+ 
 });
 
 module.exports = router;

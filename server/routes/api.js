@@ -17,10 +17,9 @@ function verifyToken(req, res, next) {
       req.headers.authorization && req.headers.authorization.split(" ")[1];
     if (!token) return res.status(401).json({ error: "Unauthorized" });
   
-    jwt.verify(token, process.env.SESSION_KEY, (err, decoded) => {
+    jwt.verify(token, process.env.ACCESS_TOKEN_KEY, (err, decoded) => {
       if (err) return res.status(401).json({ error: "Invalid token" });
       req.userId = decoded.userId;
-      console.log("Succes verification")
       next();
     });
   }
