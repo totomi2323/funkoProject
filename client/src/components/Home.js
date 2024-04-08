@@ -5,7 +5,7 @@ import "../styles/card.css";
 import "../styles/home.css";
 import { useAuth } from "../hooks/AuthProvider";
 import { useSearchParams, Link, useNavigate } from "react-router-dom";
-import e from "cors";
+
 
 const Home = () => {
   let { user, loggedIn } = useAuth();

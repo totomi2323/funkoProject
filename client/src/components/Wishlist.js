@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../hooks/AuthProvider";
 import Card from "./subComponents/Card";
-
+import "../styles/wishlist.css"
 const Wishlist = () => {
   const { loggedIn, user, token } = useAuth();
   console.log(user);
@@ -24,7 +24,7 @@ const Wishlist = () => {
   }, []);
 
   return (
-    <div>
+    <div className="wishlistPage">
       {!loggedIn ? (
         <Navigate to={"/"}></Navigate>
       ) : (

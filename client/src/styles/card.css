@@ -1,5 +1,6 @@
 .itemCardContainer {
     display: flex;
+    max-width: 1400px;
     flex-wrap: wrap;
     justify-content: space-around; /* You can use other values like space-between or space-evenly based on your preference */
   }
