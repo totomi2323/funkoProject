@@ -14,7 +14,6 @@ const UserSchema = new Schema({
     token:{type: String, required: true},
     faceContact:{type: String},
     whatsAppContact:{type: String},
-    instagramContact:{type: String},
     emailContact:{type: String},
 })
 
