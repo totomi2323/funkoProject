@@ -4,6 +4,8 @@ import Login from "./Login";
 import Home from "./Home";
 import Wishlist from "./Wishlist";
 import Register from "./Register";
+import MyItems from "./MyItems";
+import Profile from "./Profile";
 import AuthProvider from "../hooks/AuthProvider";
 
 import { Children } from "react";
@@ -30,6 +32,14 @@ const Router = () => {
           path: "/register",
           element: <Register />,
         },
+        {
+          path:"/profile",
+          element:<Profile/>,
+        },
+        {
+          path:"/my_items",
+          element:<MyItems/>,
+        }
       ],
     },
   ]);

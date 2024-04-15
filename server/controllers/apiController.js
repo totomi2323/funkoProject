@@ -64,7 +64,7 @@ exports.dislike_item = asyncHandler(async(req,res,next) => {
 exports.get_wishlist = asyncHandler(async(req,res,next) => {
   const userID = req.params.id;
 
-  let user = await User.findOne({googleId: req.params.id}).populate("wishlist").exec();
+  let user = await User.findOne({googleId: userID}).populate("wishlist").exec();
   console.log(user)
   res.json(user.wishlist)
 })

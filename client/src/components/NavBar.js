@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import "../styles/navbar.css";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../hooks/AuthProvider";
-import { ReactComponent as User } from "../svg/user.svg";
+import { ReactComponent as UserLogo } from "../svg/user.svg";
 
 const NavBar = () => {
-  const { loggedIn, logout } = useAuth();
+  const { loggedIn, logout, user } = useAuth();
 
   return (
     <div className="navbar">
@@ -21,13 +21,28 @@ const NavBar = () => {
       ) : (
         <>
           <div className="userButton">
-            <User className="userLogo" /> <p style={{ color: "white" }}>User</p>
+            {user ? (
+              <>
+                <UserLogo className="userLogo" />{" "}
+                <p style={{ color: "white" }}>
+                  {user.family_name} {user.given_name}
+                </p>
+              </>
+            ) : (
+              <>
+               <UserLogo className="userLogo" /> <p style={{ color: "white" }}>User</p></>
+            )}
+
             <ul className="dropDownList">
               <li className="dropDownElement">
-                <Link className="dropDownLink" to={"/profile"}>Profile</Link>{" "}
+                <Link className="dropDownLink" to={"/profile"}>
+                  Profile
+                </Link>{" "}
               </li>
               <li className="dropDownElement">
-                <Link className="dropDownLink" to={"/myItems"}>My items</Link>
+                <Link className="dropDownLink" to={"/my_items"}>
+                  My items
+                </Link>
               </li>
               <li className="dropDownElement">
                 <Link className="dropDownLink" to={"/wishlist"}>

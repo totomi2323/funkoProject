@@ -10,7 +10,7 @@ const UserSchema = new Schema({
     password:{type: String},
     wishlist:[{type: Schema.Types.ObjectId, ref: "Item", required: true }],
     userCollection:[{type: Schema.Types.ObjectId, ref: "UserCollection", required: true }],
-    sale:[{type: Schema.Types.ObjectId, ref: "Item", required: true }],
+    sale:[{type: Schema.Types.ObjectId, ref: "ForSale", required: true }],
     token:{type: String, required: true},
     faceContact:{type: String},
     whatsAppContact:{type: String},

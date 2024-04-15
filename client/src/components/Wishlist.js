@@ -10,7 +10,6 @@ const Wishlist = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    console.log("run");
     fetch("http://192.168.0.31:5000/api/wishlist/" + user.uid, {
       method: "GET",
       headers: {
