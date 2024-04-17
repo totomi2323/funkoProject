@@ -69,3 +69,10 @@ exports.get_wishlist = asyncHandler(async(req,res,next) => {
   res.json(user.wishlist)
 })
 
+exports.get_item = asyncHandler(async(req,res,next) => {
+  const itemId = req.params.id;
+
+  let item = await Item.findById(itemId).populate("series").exec()
+
+  res.json(item)
+})

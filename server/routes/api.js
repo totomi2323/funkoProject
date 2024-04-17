@@ -11,6 +11,7 @@ router.get("/wishlist/:id", verifyToken, apiController.get_wishlist)
 router.post("/wishlist/add", verifyToken ,apiController.like_item)
 router.post("/wishlist/remove", verifyToken ,apiController.dislike_item)
 
+router.get("/item/:id", verifyToken, apiController.get_item)
 
 
 module.exports = router; 

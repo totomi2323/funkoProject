@@ -7,6 +7,7 @@ import Register from "./Register";
 import MyItems from "./MyItems";
 import Profile from "./Profile";
 import AuthProvider from "../hooks/AuthProvider";
+import SellItem from "./SellItem";
 
 import { Children } from "react";
 
@@ -40,6 +41,11 @@ const Router = () => {
           path:"/my_items",
           element:<MyItems/>,
         }
+      ,
+      {
+        path: "/sell/:itemId",
+        element: <SellItem/>
+      }
       ],
     },
   ]);

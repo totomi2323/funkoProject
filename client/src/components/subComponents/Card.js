@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/card.css"
 import LikeButton from "./LikeButton"
-import AddToCollection from "./AddToCollection";
+import AddToCollection from "./AddToSellButton";
 
 const Card = (props) => {
   const { item} = props;
@@ -28,7 +28,7 @@ const Card = (props) => {
       )}
       <div className="interactionButtons">
         <LikeButton itemId={item._id} />
-        <AddToCollection />
+        <AddToCollection itemId={item._id} />
       </div>
       </div>
  
