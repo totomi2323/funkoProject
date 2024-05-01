@@ -24,13 +24,13 @@ const NavBar = () => {
             {user ? (
               <>
                 <UserLogo className="userLogo" />{" "}
-                <p style={{ color: "white" }}>
+                <p>
                   {user.family_name} {user.given_name}
                 </p>
               </>
             ) : (
               <>
-               <UserLogo className="userLogo" /> <p style={{ color: "white" }}>User</p></>
+               <UserLogo className="userLogo" /> <p>User</p></>
             )}
 
             <ul className="dropDownList">

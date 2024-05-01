@@ -1,6 +1,6 @@
 /* Navbar Container */
 .navbar {
-    background-color: #3498db;
+    background-color: #333333;
     padding: 10px;
     display: flex;
     justify-content: space-between;
@@ -10,7 +10,7 @@
   /* Link Styles */
   .navbar a {
     text-decoration: none;
-    color: #fff;
+    color: rgb(149, 148, 148);
     margin: 0 10px;
     padding: 10px;
     border-radius: 5px;
@@ -105,6 +105,7 @@
     position: relative;
     display: flex;
     padding:12px;
+    
   }
   
   /* Style for category text */
@@ -112,6 +113,7 @@
     margin: 0;
     padding: 0;
     cursor: pointer;
+    color: rgb(149, 148, 148);
   }
   
   /* Hide category list by default */
@@ -135,6 +137,9 @@
     list-style: none;
     padding: 8px ;
     font-weight: bold;
+    color: white;
+  }
+  .dropDownList li a { 
     color: white;
   }
  

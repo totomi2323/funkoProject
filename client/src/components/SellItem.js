@@ -28,7 +28,7 @@ const SellItem = () => {
       <div className="itemForSale">
         {item ? (
           <div className="itemPictureContainer" alt={item.alt} key={item._id}>
-            <div className="itemImageContainer">
+            <div className="sellItemImageContainer">
               {item.imgUrl !== "undefined" ? (
                 <>
                   <img className="itemForSaleImage" src={item.imgUrl}></img>
@@ -79,7 +79,7 @@ const SellItem = () => {
               ></input>
             </div>
             <div className="form-element">
-              <label htmlFor="contact"> Contant: </label>
+              <label htmlFor="contact"> Contact: </label>
               <input type={"text"} name="contact" required></input>
             </div>
             <button type="submit" className="sell-button">
