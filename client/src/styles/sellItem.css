@@ -14,6 +14,7 @@
     padding:12px;
     border: 1px solid black;
     border-radius: 12px;
+    background-color: rgb(244, 244, 244);
   }
   
   .itemPictureContainer {
@@ -25,6 +26,7 @@
   
   .sellItemImageContainer {
     margin-right: 20px;
+    height: 100%;
   }
   
   .itemForSaleImage {
@@ -58,10 +60,13 @@
   .formContainer {
     max-width: 400px;
   }
+
   
   .sellForm {
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
+    
   }
   
   .form-element {
@@ -80,4 +85,38 @@
   .sellButton:hover {
     background-color: #0056b3;
   }
+
+
+  .sell-button {
+    position: relative;
+    background-color: rgb(230, 34, 77);
+    border-radius: 5px;
+    box-shadow: rgb(121, 18, 55) 0px 4px 0px 0px;
+    padding: 8px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    box-sizing: border-box;
+    color: #fff;
+    border: none;
+    font-size: 20px;
+    transition: all 0.3s ease-in-out;
+    z-index: 1;
+    overflow: hidden;
+  }
   
+  .sell-button::before {
+    content: "";
+    background-color: rgb(248, 50, 93);
+    width: 0;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: width 700ms ease-in-out;
+    display: inline-block;
+  }
+  
+  .sell-button:hover::before {
+    width: 100%;
+  }

@@ -13,6 +13,8 @@ router.post("/wishlist/remove", verifyToken ,apiController.dislike_item)
 
 router.get("/item/:id", verifyToken, apiController.get_item)
 
+router.post("/sell/add" ,verifyToken, apiController.add_item_forsale)
+
 
 module.exports = router; 
 
