@@ -5,7 +5,7 @@ import Card from "./subComponents/Card";
 import "../styles/wishlist.css"
 const Wishlist = () => {
   const { loggedIn, user, token } = useAuth();
-  console.log(user);
+ 
 
   const [items, setItems] = useState([]);
 
@@ -20,6 +20,7 @@ const Wishlist = () => {
         setItems(res);
       });
     });
+    console.log(items)
   }, []);
 
   return (

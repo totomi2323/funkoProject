@@ -1,7 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
-
 const Item = require("../models/item");
 const Series = require("../models/series");
 const User = require("../models/user");
@@ -86,23 +85,19 @@ exports.get_item = asyncHandler(async (req, res, next) => {
 });
 
 exports.add_item_forsale = asyncHandler(async (req, res, next) => {
+  console.log(req.body);
+  console.log(req.file);
 
-  console.log(req.body)
-  console.log(req.file)
-  
-  const {
-   data, userID, itemID
-  } = req.body;
+  const { data, userID, itemID } = req.body;
 
-  let parsedData = JSON.parse(data)
+  let parsedData = JSON.parse(data);
 
-  console.log(parsedData)
-  
+  console.log(parsedData);
 
   const findUser = await User.findOne({ googleId: userID }).exec();
 
   console.log(findUser._id);
-  console.log("File name:" + req.file.filename)
+  console.log("File name:" + req.file.filename);
 
   const newItemForSale = new ForSale({
     item: itemID,
@@ -115,15 +110,23 @@ exports.add_item_forsale = asyncHandler(async (req, res, next) => {
     location: parsedData.location,
   });
 
-
-
-
   await newItemForSale.save();
   //Add newItemForSale to user sales.
   await User.updateOne(
     { googleId: userID },
     { $push: { sale: newItemForSale._id } }
   );
-  await Item.updateOne({_id : itemID}, {$push: {available: findUser._id}})
-    res.send(200)
+  await Item.updateOne({ _id: itemID }, { $push: { available: findUser._id } });
+  res.send(200);
+});
+
+exports.get_sales = asyncHandler(async (req, res, next) => {
+  const userID = req.params.id;
+
+  let user = await User.findOne({ googleId: userID })
+    .populate({path:"sale", populate: { path: "item"}})
+    .exec();
+    // sale.item name doesn't get populated to get name etc...
+  console.log(user.sale)
+  res.json(user.sale);
 });
