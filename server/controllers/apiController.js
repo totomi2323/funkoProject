@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
+
 const Item = require("../models/item");
 const Series = require("../models/series");
 const User = require("../models/user");
@@ -85,39 +86,44 @@ exports.get_item = asyncHandler(async (req, res, next) => {
 });
 
 exports.add_item_forsale = asyncHandler(async (req, res, next) => {
+
+  console.log(req.body)
+  console.log(req.file)
+  
   const {
-    timestamp_img,
-    price,
-    quantity,
-    contact,
-    user,
-    item,
-    location,
-    description,
+   data, userID, itemID
   } = req.body;
 
-  const findUser = await User.findOne({ googleId: user.uid }).exec();
+  let parsedData = JSON.parse(data)
 
-  console.log(item._id);
+  console.log(parsedData)
+  
+
+  const findUser = await User.findOne({ googleId: userID }).exec();
+
   console.log(findUser._id);
+  console.log("File name:" + req.file.filename)
 
   const newItemForSale = new ForSale({
-    item: item._id,
-    imgUrl: timestamp_img,
+    item: itemID,
+    imgUrl: req.file.filename,
     available: findUser._id,
-    price: price,
-    quantity: quantity,
-    contact: contact,
-    description: description,
-    location: location,
+    price: parsedData.price,
+    quantity: parsedData.quantity,
+    contact: parsedData.contact,
+    description: parsedData.description,
+    location: parsedData.location,
   });
+
+
+
 
   await newItemForSale.save();
   //Add newItemForSale to user sales.
   await User.updateOne(
-    { googleId: user.uid },
+    { googleId: userID },
     { $push: { sale: newItemForSale._id } }
   );
-
-  console.log(price, quantity, contact);
+  await Item.updateOne({_id : itemID}, {$push: {available: findUser._id}})
+    res.send(200)
 });

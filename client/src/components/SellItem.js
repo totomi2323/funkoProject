@@ -2,10 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../hooks/AuthProvider";
 import { useParams } from "react-router-dom";
 import "../styles/sellItem.css";
+import {useNavigate} from "react-router-dom"
+
 const SellItem = () => {
   const { user, token } = useAuth();
 
+  
   const [item, setItem] = useState({});
+  const [file, setFile] = useState();
+  const [statusMessage, setStatusMessage] = useState('');
+
+  const navigate = useNavigate();
+
 
   let { itemId } = useParams();
 
@@ -27,37 +35,66 @@ const SellItem = () => {
     e.preventDefault();
     console.log(user);
 
-    const timestamp_img = e.target.elements.timestamp_img.value;
-    const price = e.target.elements.price.value;
-    const quantity = e.target.elements.quantity.value;
-    const contact = e.target.elements.contact.value;
-    const description = e.target.elements.description.value;
-    const location = e.target.elements.location.value;
+
+    const data = {}
+   console.log(user)
+    data.price = e.target.elements.price.value;
+    data.quantity = e.target.elements.quantity.value;
+    data.contact = e.target.elements.contact.value;
+    data.description = e.target.elements.description.value;
+    data.location = e.target.elements.location.value;
+    
+    // above into data = { those} , create formData for file and these.
+
+
+    const formData = new FormData();
+    formData.append("data" ,JSON.stringify(data))
+    formData.append("userID", user.uid)
+    formData.append("itemID", item._id)
+    formData.append("file", file)
 
     fetch("http://192.168.0.31:5000/api/sell/add", {
       method: "POST",
       mode: "cors",
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({
-        timestamp_img,
-        price,
-        quantity,
-        contact,
-        user,
-        item,
-        description,
-        location
-      }),
+      body: formData,
     })
-      .then((response) => response.text())
-      .then((data) => {
-        //console.log(data);
+      .then((response) => {
+        handleResponseStatus(response.status)
       });
+      
   };
+  const handleResponseStatus = (status) => {
+    switch (status) {
+      case 200:
+        setStatusMessage('Success! Your request was completed.');
+        navigate("/my_items")
+        break;
+      case 201:
+        setStatusMessage('Created! Your resource has been created.');
+        break;
+      case 400:
+        setStatusMessage('Bad Request! Please check your input.');
+        break;
+      case 401:
+        setStatusMessage('Unauthorized! Please log in.');
+        break;
+      case 403:
+        setStatusMessage('Forbidden! You do not have access.');
+        break;
+      case 404:
+        setStatusMessage('Not Found! The resource does not exist.');
+        break;
+      case 500:
+        setStatusMessage('Server Error! Please try again later.');
+        break;
+      default:
+        setStatusMessage('An unexpected error occurred.');
+    }
+  };
+
 
   return (
     <div className="centeredContainer">
@@ -95,7 +132,7 @@ const SellItem = () => {
           <></>
         )}
         <div className="formContainer">
-          <form className="sellForm" action="#" onSubmit={handleSubmit}>
+          <form className="sellForm" action="#" onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="form-element">
               <label htmlFor="description"> Description: </label>
               <input type={"text"} name="description" ></input>
@@ -107,7 +144,7 @@ const SellItem = () => {
            
             <div className="form-element">
               <label htmlFor="price">Price: </label>
-              <input type={"number"} name="price" required></input>
+              £ <input type={"number"} name="price" required></input>
             </div>
             <div className="form-element">
               <label htmlFor="quantity">Quantity: </label>
@@ -124,8 +161,9 @@ const SellItem = () => {
             </div>
             <div className="form-element">
               <label htmlFor="timestamp_img">Timestamp image: </label>
-              <input type={"file"} name="timestamp_img" required></input>
+              <input type={"file"} name="timestamp_img" onChange={(e) => setFile(e.target.files[0])} required></input>
             </div>
+            <p>{statusMessage}</p>
             <button type="submit" className="sell-button">
               Post
             </button>

@@ -85,6 +85,9 @@
   .sellButton:hover {
     background-color: #0056b3;
   }
+  input[type="number"] {
+    padding: 4px;
+  }
 
 
   .sell-button {

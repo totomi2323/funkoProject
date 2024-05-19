@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 
+const upload = require("../middleware/upload")
+
+
 const apiController = require("../controllers/apiController")
 
 router.get("/home", apiController.get_items )
@@ -13,7 +16,7 @@ router.post("/wishlist/remove", verifyToken ,apiController.dislike_item)
 
 router.get("/item/:id", verifyToken, apiController.get_item)
 
-router.post("/sell/add" ,verifyToken, apiController.add_item_forsale)
+router.post("/sell/add" ,verifyToken, upload.single('file'), apiController.add_item_forsale)
 
 
 module.exports = router; 
