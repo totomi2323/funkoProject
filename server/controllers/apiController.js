@@ -126,7 +126,6 @@ exports.get_sales = asyncHandler(async (req, res, next) => {
   let user = await User.findOne({ googleId: userID })
     .populate({path:"sale", populate: { path: "item"}})
     .exec();
-    // sale.item name doesn't get populated to get name etc...
-  console.log(user.sale)
+
   res.json(user.sale);
 });

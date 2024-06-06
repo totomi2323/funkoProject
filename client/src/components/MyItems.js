@@ -32,14 +32,15 @@ const MyItems = () => {
           {items ? (
             <div className="itemCardContainer">
               {" "}
-              <button onClick={console.log(items)}>asd</button>
+     
               {items.map((item, i) => {
-                return <Card key={i} item={item.item} />;
+                return <Card key={i} item={item.item} forSale={item} myItems={true} />;
               })}
             </div>
           ) : (
             <>No items for sale</>
           )}
+                   <button onClick={console.log(items)}>asd</button>
         </>
       )}
     </div>

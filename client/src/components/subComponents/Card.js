@@ -1,37 +1,60 @@
 import React, { useEffect, useState } from "react";
-import "../../styles/card.css"
-import LikeButton from "./LikeButton"
+import "../../styles/card.css";
+import LikeButton from "./LikeButton";
 import AddToCollection from "./AddToSellButton";
 
 const Card = (props) => {
-  const { item} = props;
+  const { item, forSale } = props;
 
-
-    item.name = item.name.replace(/&amp;/g, '&');
+  item.name = item.name.replace(/&amp;/g, "&");
 
   return (
     <div className="itemCard" alt={item.alt} key={item._id}>
       <div className="itemImageContainer">
-        {item.imgUrl !== "undefined" ? (<> <img className="itemImage" src={item.imgUrl}></img></>) : (<> No Image Available</>)}
-       
+        {item.imgUrl !== "undefined" ? (
+          <>
+            {forSale ? (  <img className="itemImage" src={"http://127.0.0.1:5000/images/"+forSale.imgUrl}></img>): (  <img className="itemImage" src={item.imgUrl}></img>)}
+          </>
+        ) : (
+          <> No Image Available</>
+        )}
       </div>
       <div className="descriptionContainer">
         <p className="itemName">{item.name}</p>
         {item.series !== "undefined" ? (
-        <ul className="seriesListContainer">
-          {item.series.map((ser, i) => {
-            return <li key={i} className="seriesListElement"> {ser.name}</li>;
-          })}
-        </ul>
-      ) : (
-        <>No Series</>
-      )}
-      <div className="interactionButtons">
-        <LikeButton itemId={item._id} />
-        <AddToCollection itemId={item._id} />
+          <ul className="seriesListContainer">
+            {item.series.map((ser, i) => {
+              return (
+                <li key={i} className="seriesListElement">
+                  {" "}
+                  {ser.name}
+                </li>
+              );
+            })}
+          </ul>
+        ) : (
+          <>No Series</>
+        )}
+        {forSale ? (
+          <div className="saleDescriptionContainer">
+            <div className="saleDescription">
+              <p>Item description:</p>
+              <p>{forSale.description}</p>{" "}
+            </div>
+            <div className="salePrice">
+              <p className="price">Price: £{forSale.price}</p>
+              <p className="quantity">Available: {forSale.quantity} pcs</p>
+            </div>
+            <p className="location">Location: {forSale.location}</p>
+            <p className="contact">Contact: {forSale.contact}</p>
+          </div>
+        ) : (
+          <div className="interactionButtons">
+            <LikeButton itemId={item._id} />
+            <AddToCollection itemId={item._id} />
+          </div>
+        )}
       </div>
-      </div>
- 
     </div>
   );
 };

@@ -56,9 +56,57 @@
   }
   
   /* Style for when there is no series */
-  .descriptionContainer > :last-child {
+  .descriptionContainer .seriesListContainer {
     font-style: italic;
     color: #888;
     margin: 10px 0;
   }
+  
+  .saleDescriptionContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-family: Arial, sans-serif;
+  }
+  
+  .saleDescription {
+    margin-bottom: 15px;
+  }
+  
+  .saleDescription p:first-of-type {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .salePrice {
+    margin-bottom: 15px;
+  }
+  
+  .price,
+  .quantity {
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+  
+  .location,
+  .contact {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  
+  .price {
+    color: #e74c3c;
+    font-weight: bold;
+  }
+  
+  .quantity {
+    color: #3498db;
+  }
+  
+  .location,
+  .contact {
+    color: #2c3e50;
+  }
+  
+
   

@@ -56,7 +56,7 @@ const Home = () => {
 
           <div className="itemCardContainer">
             {fetchedData.data.docs.map((item, i) => {
-              return <Card key={i} item={item} />;
+              return <Card key={i} item={item} myItems={false} />;
             })}
           </div>
           <NextPrevButtons data={fetchedData.data} />
