@@ -40,7 +40,7 @@ const MyItems = () => {
           ) : (
             <>No items for sale</>
           )}
-                   <button onClick={console.log(items)}>asd</button>
+                   <button onClick={() => console.log(items)}>asd</button>
         </>
       )}
     </div>

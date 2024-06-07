@@ -7,6 +7,7 @@ const Profile = () => {
     return(
         <div>
             <p>Profile page</p>
+            <button onClick={()=> {console.log(user)}}>Console</button>
         </div>
     )
 }
