@@ -13,7 +13,14 @@ const Card = (props) => {
       <div className="itemImageContainer">
         {item.imgUrl !== "undefined" ? (
           <>
-            {forSale ? (  <img className="itemImage" src={"http://127.0.0.1:5000/images/"+forSale.imgUrl}></img>): (  <img className="itemImage" src={item.imgUrl}></img>)}
+            {forSale ? (
+              <img
+                className="itemImage"
+                src={"http://127.0.0.1:5000/images/" + forSale.imgUrl}
+              ></img>
+            ) : (
+              <img className="itemImage" src={item.imgUrl}></img>
+            )}
           </>
         ) : (
           <> No Image Available</>
@@ -53,6 +60,21 @@ const Card = (props) => {
             <LikeButton itemId={item._id} />
             <AddToCollection itemId={item._id} />
           </div>
+        )}
+        {item.available ? (
+          <>
+            {item.available.map((value, i) => {
+              return (
+                <div>
+                  <p>Available:</p>
+                  {value.user ? <>{value.user.name} </> : <></>}
+                  <>£{value.price} </>
+                </div>
+              );
+            })}
+          </>
+        ) : (
+          <>{item.available.price}</>
         )}
       </div>
     </div>

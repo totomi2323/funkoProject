@@ -4,6 +4,7 @@
     margin-bottom: 20px; /* Add some space below the form */
     margin-top: 10px;
     width: 30%;
+    align-self: center;
   }
   
   .searchItemLabel {

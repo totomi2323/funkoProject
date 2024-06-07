@@ -22,7 +22,7 @@ exports.get_items = asyncHandler(async (req, res, next) => {
 
   const { limit, offset } = getPagination(page, size);
 
-  Item.paginate(condition, { offset, limit, populate: "series" })
+  Item.paginate(condition, { offset, limit, populate: "series available.user"})
     .then((data) => {
       res.json({ data: data });
     })
@@ -79,7 +79,7 @@ exports.get_wishlist = asyncHandler(async (req, res, next) => {
 exports.get_item = asyncHandler(async (req, res, next) => {
   const itemId = req.params.id;
 
-  let item = await Item.findById(itemId).populate("series").exec();
+  let item = await Item.findById(itemId).populate("series ").exec();
 
   res.json(item);
 });
@@ -116,7 +116,7 @@ exports.add_item_forsale = asyncHandler(async (req, res, next) => {
     { googleId: userID },
     { $push: { sale: newItemForSale._id } }
   );
-  await Item.updateOne({ _id: itemID }, { $push: { available: findUser._id } });
+  await Item.updateOne({ _id: itemID }, { $push: { available: {user : findUser._id, price: parsedData.price}} });
   res.send(200);
 });
 
