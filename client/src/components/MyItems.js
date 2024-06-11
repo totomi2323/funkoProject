@@ -32,9 +32,9 @@ const MyItems = () => {
           {items ? (
             <div className="itemCardContainer">
               {" "}
-     
+            
               {items.map((item, i) => {
-                return <Card key={i} item={item.item} forSale={item} myItems={true} />;
+                return <Card key={i} item={item.item} forSale={item} myItems={true}  />;
               })}
             </div>
           ) : (

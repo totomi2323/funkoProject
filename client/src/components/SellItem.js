@@ -35,7 +35,6 @@ const SellItem = () => {
     e.preventDefault();
     console.log(user);
 
-
     const data = {}
    console.log(user)
     data.price = e.target.elements.price.value;
@@ -44,9 +43,6 @@ const SellItem = () => {
     data.description = e.target.elements.description.value;
     data.location = e.target.elements.location.value;
     
-    // above into data = { those} , create formData for file and these.
-
-
     const formData = new FormData();
     formData.append("data" ,JSON.stringify(data))
     formData.append("userID", user.uid)

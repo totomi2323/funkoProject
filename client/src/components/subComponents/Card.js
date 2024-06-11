@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../../styles/card.css";
 import LikeButton from "./LikeButton";
 import AddToCollection from "./AddToSellButton";
+import DeleteItem from "./DeleteItem";
 
 const Card = (props) => {
   const { item, forSale } = props;
@@ -54,27 +55,30 @@ const Card = (props) => {
             </div>
             <p className="location">Location: {forSale.location}</p>
             <p className="contact">Contact: {forSale.contact}</p>
+            <DeleteItem forSale={forSale} />
           </div>
         ) : (
-          <div className="interactionButtons">
-            <LikeButton itemId={item._id} />
-            <AddToCollection itemId={item._id} />
+          <div >
+            <div className="interactionButtons">
+              <LikeButton itemId={item._id} />
+              <AddToCollection itemId={item._id} />
+            </div>
+            {item.available  ? (
+              <>
+                {item.available.map((value, i) => {
+                  return (
+                    <div>
+                      <p>Available:</p>
+                      {value.user ? <>{value.user.name} </> : <></>}
+                      <>£{value.price} </>
+                    </div>
+                  );
+                })}
+              </>
+            ) : (
+              <></>
+            )}
           </div>
-        )}
-        {item.available ? (
-          <>
-            {item.available.map((value, i) => {
-              return (
-                <div>
-                  <p>Available:</p>
-                  {value.user ? <>{value.user.name} </> : <></>}
-                  <>£{value.price} </>
-                </div>
-              );
-            })}
-          </>
-        ) : (
-          <>{item.available.price}</>
         )}
       </div>
     </div>

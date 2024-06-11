@@ -66,8 +66,8 @@
   .saleDescriptionContainer {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     font-family: Arial, sans-serif;
+    flex:0;
   }
   
   .saleDescription {
@@ -111,3 +111,60 @@
   
 
   
+  .deleteButton {
+    position: relative;
+    width: 150px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: 1px solid #cc0000;
+    background-color: #e50000;
+    overflow: hidden;
+  }
+  
+  .deleteButton, .button__icon, .button__text {
+    transition: all 0.3s;
+  }
+  
+  .deleteButton .button__text {
+    transform: translateX(35px);
+    color: #fff;
+    font-weight: 600;
+  }
+  
+  .deleteButton .button__icon {
+    position: absolute;
+    transform: translateX(109px);
+    height: 100%;
+    width: 39px;
+    background-color: #cc0000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .deleteButton .svg {
+    width: 20px;
+  }
+  
+  .deleteButton:hover {
+    background: #cc0000;
+  }
+  
+  .deleteButton:hover .button__text {
+    color: transparent;
+  }
+  
+  .deleteButton:hover .button__icon {
+    width: 148px;
+    transform: translateX(0);
+  }
+  
+  .deleteButton:active .button__icon {
+    background-color: #b20000;
+  }
+  
+  .deleteButton:active {
+    border: 1px solid #b20000;
+  }

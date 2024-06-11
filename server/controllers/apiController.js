@@ -116,7 +116,7 @@ exports.add_item_forsale = asyncHandler(async (req, res, next) => {
     { googleId: userID },
     { $push: { sale: newItemForSale._id } }
   );
-  await Item.updateOne({ _id: itemID }, { $push: { available: {user : findUser._id, price: parsedData.price}} });
+  await Item.updateOne({ _id: itemID }, { $push: { available: {user : findUser._id, price: parsedData.price, saleId: newItemForSale._id}} });
   res.send(200);
 });
 

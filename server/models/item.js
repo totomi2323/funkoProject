@@ -7,7 +7,7 @@ const ItemSchema = new Schema ({
     name: {type: String, required: true, minLength: 1},
     imgUrl: {type:String, required: true},
     series: [{type: Schema.Types.ObjectId, ref:"Series", required: true}],
-    available: { user :{type:Schema.Types.ObjectId, ref: "User", required: true}, price: {type: Number, required:true}},
+    available: { user :{type:Schema.Types.ObjectId, ref: "User", required: true}, price: {type: Number, required:true}, saleId: {type:String, required : true}},
     alt: {type:String, required: true},
 })
 
