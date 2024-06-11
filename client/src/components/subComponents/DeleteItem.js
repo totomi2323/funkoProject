@@ -1,15 +1,27 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/addToCollection.css";
 import { useAuth } from "../../hooks/AuthProvider";
-import { useNavigate } from "react-router-dom";
 
 
 
 const DeleteItem = (props) => {
+  let {token} = useAuth()
+
     const {forSale} = props;
 
     const handleSubmit = () => {
-        console.log(forSale)
+      
+        const data = forSale
+        fetch("http://192.168.0.31:5000/api/sale/delete", {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "Authorization" : `Bearer ${token}`
+          },
+          body: JSON.stringify(data),
+        });
     }
 
     return (

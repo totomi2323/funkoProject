@@ -22,7 +22,12 @@ exports.get_items = asyncHandler(async (req, res, next) => {
 
   const { limit, offset } = getPagination(page, size);
 
-  Item.paginate(condition, { offset, limit, populate: "series available.user", sort: {available : -1} })
+  Item.paginate(condition, {
+    offset,
+    limit,
+    populate: "series available.user",
+    sort: { available: -1 },
+  })
     .then((data) => {
       res.json({ data: data });
     })
@@ -116,7 +121,18 @@ exports.add_item_forsale = asyncHandler(async (req, res, next) => {
     { googleId: userID },
     { $push: { sale: newItemForSale._id } }
   );
-  await Item.updateOne({ _id: itemID }, { $push: { available: {user : findUser._id, price: parsedData.price, saleId: newItemForSale._id}} });
+  await Item.updateOne(
+    { _id: itemID },
+    {
+      $push: {
+        available: {
+          user: findUser._id,
+          price: parsedData.price,
+          saleId: newItemForSale._id,
+        },
+      },
+    }
+  );
   res.send(200);
 });
 
@@ -124,8 +140,21 @@ exports.get_sales = asyncHandler(async (req, res, next) => {
   const userID = req.params.id;
 
   let user = await User.findOne({ googleId: userID })
-    .populate({path:"sale", populate: { path: "item"}})
+    .populate({ path: "sale", populate: { path: "item" } })
     .exec();
 
   res.json(user.sale);
+});
+
+exports.delete_sale = asyncHandler(async (req, res, next) => {
+  const data = req.body;
+
+  await ForSale.findByIdAndDelete(data._id);
+  await Item.updateOne(
+    { _id: data.item._id },
+    { $pull: { available: { $elemMatch: { saleId: data._id } } } }
+  );
+  await User.updateOne({ _id: data.available }, { $pull: { sale: data._id } });
+
+  console.log("lefutott")
 });
