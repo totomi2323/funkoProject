@@ -11,11 +11,11 @@ const Login = () => {
       <form className="form-container" action="#">
         <div className="form-group">
           <label htmlFor="email">Email: </label>
-          <input type={"text"} name="email" required></input>
+          <input type={"text"} name="email" required className="email"></input>
         </div>
         <div className="form-group">
           <label htmlFor="password">Password:</label>
-          <input type={"password"} name="password" required></input>
+          <input type={"password"} name="password" required className="password"></input>
         </div>
         <button type="submit" className="btn btn-primary">
           Login

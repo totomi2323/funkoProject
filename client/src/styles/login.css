@@ -28,8 +28,7 @@
     font-weight: bold;
   }
   
-  input[type="text"],
-  input[type="password"] {
+  .email , .password{
     width: 100%;
     box-sizing: border-box;
     padding: 10px;

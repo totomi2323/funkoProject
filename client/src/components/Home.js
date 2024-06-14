@@ -5,7 +5,8 @@ import "../styles/card.css";
 import "../styles/home.css";
 import { useAuth } from "../hooks/AuthProvider";
 import { useSearchParams, Link, useNavigate } from "react-router-dom";
-import headerPicture from "../images/headPics.jpg"
+import headerPicture from "../images/headPics.jpg";
+import searchButtonSvg from "../svg/magnify.svg";
 
 const Home = () => {
   let { user, loggedIn } = useAuth();
@@ -13,18 +14,18 @@ const Home = () => {
   const [fetchedData, setFetchedData] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [search, setSearch] = useState("")
+  const [search, setSearch] = useState("");
 
   let searchValue = searchParams.get("searchItem");
   let pageValue = searchParams.get("page");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setSearch("")
+    setSearch("");
     fetch(
       "http://192.168.0.31:5000/api/home?" +
         new URLSearchParams({
-          search: searchValue ? searchValue : "", 
+          search: searchValue ? searchValue : "",
           page: pageValue ? pageValue : "",
         })
     ).then((response) => {
@@ -38,8 +39,12 @@ const Home = () => {
     <>
       {typeof fetchedData.data !== "undefined" ? (
         <div className="homePage">
-          {searchValue ? (<></>):( <img src={headerPicture} className="headerPicture"></img>)}
-         
+          {searchValue ? (
+            <></>
+          ) : (
+            <img src={headerPicture} className="headerPicture"></img>
+          )}
+
           <form className="searchForm">
             <label className="searchItemLabel" htmlFor="searchItem"></label>
             <input
@@ -50,10 +55,18 @@ const Home = () => {
               required
               value={search}
               onChange={(e) => {
-                setSearch(e.target.value)
-                }}
+                setSearch(e.target.value);
+              }}
             ></input>
-            <button className="searchButton" onClick={(e)=> {e.preventDefault(); navigate(`/?searchItem=${search}`)  }}>Search</button>
+            <button
+              className="searchButton"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate(`/?searchItem=${search}`);
+              }}
+            >
+              <img src={searchButtonSvg} className="searchSvg"></img>
+            </button>
           </form>
 
           <div className="itemCardContainer">

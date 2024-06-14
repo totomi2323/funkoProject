@@ -1,9 +1,9 @@
 .searchForm {
     display: flex; /* Use flexbox for layout */
-    flex-direction: column;
+    flex-direction: row;
     margin-bottom: 20px; /* Add some space below the form */
     margin-top: 10px;
-    width: 30%;
+    width: 40%;
     align-self: center;
   }
   
@@ -14,7 +14,9 @@
   .searchItemInput {
     padding: 10px; /* Add padding to input */
     border: 1px solid #ccc; /* Add border */
-    border-radius: 5px; /* Add border radius */
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 10px 0 0 10px; /* Add border radius */
   }
   
   .searchButton {
@@ -22,8 +24,10 @@
     background-color: #007bff; /* Blue background color */
     color: #fff; /* White text color */
     border: none; /* Remove border */
-    border-radius: 5px; /* Add border radius */
-    cursor: pointer; /* Add pointer cursor */
+    border-radius: 0px 10px 10px 0; /* Add border radius */
+    cursor: pointer; /* Add pointer cursor */ 
+    height: 50px;
+    width: 50px;
   }
   
   .searchButton:hover {
@@ -46,3 +50,9 @@
   height: 60vh;
   object-fit:fill;
 }
+.searchButton .searchSvg {
+scale: 3;
+}
+
+
+
