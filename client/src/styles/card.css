@@ -168,3 +168,46 @@
   .deleteButton:active {
     border: 1px solid #b20000;
   }
+
+  .checkDelete { 
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 300px;
+    height: 200px;
+    background-color: rgb(255, 255, 255);
+    position:absolute;
+    left:40%;
+    top: 50%;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+  }
+
+  .checkDeleteButtonContainer {
+    display: flex;
+  }
+
+
+  .checkDeleteButtonContainer button {
+    background-color: white;
+    color: black;
+    border-radius: 10em;
+    font-size: 17px;
+    font-weight: 600;
+    padding: 1em 2em;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    border: 1px solid black;
+    box-shadow: 0 0 0 0 black;
+  }
+  
+  .checkDeleteButtonContainer button:hover {
+    transform: translateY(-4px) translateX(-2px);
+    box-shadow: 2px 5px 0 0 black;
+  };
+  
+  .checkDeleteButtonContainer button:active {
+    transform: translateY(2px) translateX(1px);
+    box-shadow: 0 0 0 0 black;
+  };

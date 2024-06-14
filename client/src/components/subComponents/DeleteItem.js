@@ -24,7 +24,8 @@ const DeleteItem = (props) => {
     }
 
     return (
-        <button className="deleteButton" type="button" style={{backgroundColor:"#e50000"}} onClick={handleSubmit} >
+      <>
+        <button className="deleteButton" type="button" style={{backgroundColor:"#e50000"}} onClick={()=> {document.querySelector(".checkDelete").style.display="flex"}} >
   <span className="button__text">Delete</span>
   <span className="button__icon">
     <svg className="svg" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg">
@@ -103,6 +104,14 @@ const DeleteItem = (props) => {
     </svg>
   </span>
 </button>
+<div className="checkDelete">
+  <p>Are you sure to delete ?</p>
+  <div className="checkDeleteButtonContainer">
+    <button onClick={handleSubmit}>Yes</button>
+    <button onClick={()=> {document.querySelector(".checkDelete").style.display="none"}}>No</button>
+  </div>
+</div>
+</>
     )
 }
 
