@@ -1,6 +1,11 @@
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
+const fs = require('fs')
+const {promisify} = require("util");
+
+const unlinkAsync = promisify(fs.unlink)
+
 const Item = require("../models/item");
 const Series = require("../models/series");
 const User = require("../models/user");
@@ -149,6 +154,7 @@ exports.get_sales = asyncHandler(async (req, res, next) => {
 exports.delete_sale = asyncHandler(async (req, res, next) => {
   const data = req.body;
 
+  console.log(data)
   await ForSale.findByIdAndDelete(data._id);
   await Item.updateOne(
     { _id: data.item._id },
@@ -156,5 +162,13 @@ exports.delete_sale = asyncHandler(async (req, res, next) => {
   );
   await User.updateOne({ _id: data.available }, { $pull: { sale: data._id } });
 
-  console.log("lefutott")
+  let path = "./public/images/"+data.imgUrl
+  console.log(path)
+  
+  fs.unlink(path, (err) => {
+    if (err) {
+      console.error(err)
+      return
+    }})
+
 });

@@ -10,7 +10,6 @@ const DeleteItem = (props) => {
     const {forSale} = props;
 
     const handleSubmit = () => {
-      
         const data = forSale
         fetch("http://192.168.0.31:5000/api/sale/delete", {
           method: "POST",
