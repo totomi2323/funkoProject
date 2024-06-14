@@ -5,7 +5,7 @@ import "../styles/card.css";
 import "../styles/home.css";
 import { useAuth } from "../hooks/AuthProvider";
 import { useSearchParams, Link, useNavigate } from "react-router-dom";
-
+import headerPicture from "../images/headPics.jpg"
 
 const Home = () => {
   let { user, loggedIn } = useAuth();
@@ -38,6 +38,8 @@ const Home = () => {
     <>
       {typeof fetchedData.data !== "undefined" ? (
         <div className="homePage">
+          {searchValue ? (<></>):( <img src={headerPicture} className="headerPicture"></img>)}
+         
           <form className="searchForm">
             <label className="searchItemLabel" htmlFor="searchItem"></label>
             <input
