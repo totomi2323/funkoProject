@@ -33,9 +33,8 @@ router.post("/", async (req, res) => {
     picture: payload.picture,
     wishlist: []
   };
-  console.log(payload);
+
   const jwtToken = jwt.sign({ payload },process.env.ACCESS_TOKEN_KEY, {expiresIn: '30m'});
-  console.log("JWT TOKEN:" + jwtToken);
 
   let userExist = await User.findOne({ googleId: payload.sub })
     .collation({ locale: "en", strength: 2 })
@@ -55,7 +54,8 @@ router.post("/", async (req, res) => {
       token: jwtToken,
     }).save();  }
 
-  res.json({ token: jwtToken, userDetails });
+    userDetails = JSON.stringify(userDetails)
+  res.json({ token: jwtToken, user : userDetails });
 });
 
 router.get("/protected", verifyToken, (req, res) => {

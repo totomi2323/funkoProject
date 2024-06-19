@@ -27,10 +27,13 @@ const AuthContext = createContext();
           body: JSON.stringify({ code }),
         }).then((response) => response.json());
 
+        let loginUser = JSON.parse(data.user)
         localStorage.setItem("token", data.token);
+        localStorage.setItem("user" , data.user)
+        console.log(data)
         navigate("/");
         setToken(data.token)
-        setUser(data.userDetails)
+        setUser(loginUser)
       },
       redirect_uri: 'postmessage',
       flow: 'auth-code',
@@ -43,10 +46,22 @@ const AuthContext = createContext();
       setToken("")
       setUser(undefined)
       localStorage.removeItem("token")
+      localStorage.removeItem("user")
     };
+
+    const checkLoggedIn = () => {
+      const loggedInUser = localStorage.getItem("user");
+      const userToken = localStorage.getItem("token");
+      if (loggedInUser && userToken) {
+        const foundUser = JSON.parse(loggedInUser);
+        setUser(foundUser);
+        setToken(userToken)
+        setLoggedIn(true)
+      }
+    }
   
     return (
-      <AuthContext.Provider value={{token, loggedIn, user, login, logout }}>
+      <AuthContext.Provider value={{token, loggedIn, user, login, logout, checkLoggedIn }}>
         {children}
       </AuthContext.Provider>
     );

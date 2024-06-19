@@ -9,7 +9,7 @@ import headerPicture from "../images/headPics.jpg";
 import searchButtonSvg from "../svg/magnify.svg";
 
 const Home = () => {
-  let { user, loggedIn } = useAuth();
+  let { user, loggedIn, checkLoggedIn} = useAuth();
 
   const [fetchedData, setFetchedData] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -19,6 +19,13 @@ const Home = () => {
   let searchValue = searchParams.get("searchItem");
   let pageValue = searchParams.get("page");
   const navigate = useNavigate();
+
+
+  useEffect(() => {
+    if (user === undefined && loggedIn === false) {
+      checkLoggedIn()
+    }
+  }, [])
 
   useEffect(() => {
     setSearch("");
@@ -75,6 +82,15 @@ const Home = () => {
             })}
           </div>
           <NextPrevButtons data={fetchedData.data} />
+          <button
+            onClick={() => {
+              let user = localStorage.getItem("user");
+              let foundUser = JSON.parse(user);
+              console.log(foundUser)
+            }}
+          >
+            Test
+          </button>
         </div>
       ) : (
         <>Loading</>
