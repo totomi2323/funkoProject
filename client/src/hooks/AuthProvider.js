@@ -46,17 +46,34 @@ const AuthContext = createContext();
       setToken("")
       setUser(undefined)
       localStorage.removeItem("token")
-      localStorage.removeItem("user")
     };
 
-    const checkLoggedIn = () => {
-      const loggedInUser = localStorage.getItem("user");
+    const checkLoggedIn = async () => {
+
+
       const userToken = localStorage.getItem("token");
-      if (loggedInUser && userToken) {
-        const foundUser = JSON.parse(loggedInUser);
-        setUser(foundUser);
-        setToken(userToken)
-        setLoggedIn(true)
+      if (userToken) {
+        const data = await fetch('http://127.0.0.1:5000/googleAuth/protected', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            "Authorization" : `Bearer ${userToken}`
+          }
+        }).then((response) => {
+          response.json().then((data) => {
+            if (response.status === 401) {
+            console.log(response.statusText)
+            } else {
+          
+              setUser(data.user.userDetails)
+              setToken(userToken)
+              setLoggedIn(true)
+              navigate("/");
+            }
+          
+          });
+        });
+    
       }
     }
   

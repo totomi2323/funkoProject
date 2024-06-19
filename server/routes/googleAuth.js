@@ -34,18 +34,21 @@ router.post("/", async (req, res) => {
     wishlist: []
   };
 
-  const jwtToken = jwt.sign({ payload },process.env.ACCESS_TOKEN_KEY, {expiresIn: '30m'});
+  
+  let jwtToken = ""
 
   let userExist = await User.findOne({ googleId: payload.sub })
     .collation({ locale: "en", strength: 2 })
     .exec();
   if (userExist) {
     if (userExist.wishlist) {
-      userDetails.wishlist = userExist.wishlist
+      userDetails.wishlist = userExist.wishlist;
+      jwtToken = jwt.sign({ userDetails },process.env.ACCESS_TOKEN_KEY, {expiresIn: '1h'});
     }
     const updateUserToken = await User.findByIdAndUpdate(userExist._id, {
       token: jwtToken,
     });
+
   } else {
     const newUser = await new User({
       googleId: payload.sub,
@@ -54,13 +57,13 @@ router.post("/", async (req, res) => {
       token: jwtToken,
     }).save();  }
 
+  
     userDetails = JSON.stringify(userDetails)
   res.json({ token: jwtToken, user : userDetails });
 });
 
 router.get("/protected", verifyToken, (req, res) => {
-  console.log("Access granted!");
-  res.json({ message: "Access granted for user ID: " + req.userId });
+  res.json({ user: req.userDetails });
 });
 
 function verifyToken(req, res, next) {
@@ -70,7 +73,7 @@ function verifyToken(req, res, next) {
 
   jwt.verify(token, process.env.ACCESS_TOKEN_KEY, (err, decoded) => {
     if (err) return res.status(401).json({ error: "Invalid token" });
-    req.userId = decoded.userId;
+    req.userDetails = decoded;
     next();
   });
 }
