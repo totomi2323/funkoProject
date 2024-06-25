@@ -29,6 +29,7 @@ router.post("/", async (req, res) => {
   let userDetails = {
     given_name: payload.given_name,
     family_name: payload.family_name,
+    nickName :  payload.family_name +" "+payload.given_name,
     uid: payload.sub,
     picture: payload.picture,
     wishlist: []
@@ -44,6 +45,10 @@ router.post("/", async (req, res) => {
     if (userExist.wishlist) {
       userDetails.wishlist = userExist.wishlist;
       jwtToken = jwt.sign({ userDetails },process.env.ACCESS_TOKEN_KEY, {expiresIn: '1h'});
+
+      if (userExist.nickName) {
+        userDetails.nickName = userExist.nickName
+      }
     }
     const updateUserToken = await User.findByIdAndUpdate(userExist._id, {
       token: jwtToken,
@@ -55,6 +60,7 @@ router.post("/", async (req, res) => {
       name: payload.name,
       email: payload.email,
       token: jwtToken,
+      nickName: "",
     }).save();  }
 
   

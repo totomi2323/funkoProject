@@ -5,21 +5,30 @@ import Card from "./subComponents/Card";
 import "../styles/wishlist.css";
 
 const MyItems = () => {
-  const { loggedIn, user, token } = useAuth();
+  const { loggedIn, user, token, checkLoggedIn} = useAuth();
 
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    fetch("http://192.168.0.31:5000/api/sale/" + user.uid, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((response) => {
-      response.json().then((res) => {
-        setItems(res);
+    if (user === undefined && loggedIn === false) {
+      checkLoggedIn()
+    }
+  }, [])
+
+  useEffect(() => {
+    if (user) {
+      fetch("http://192.168.0.31:5000/api/sale/" + user.uid, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((response) => {
+        response.json().then((res) => {
+          setItems(res);
+        });
       });
-    });
+    }
+  
   }, []);
 
   return (
@@ -28,19 +37,26 @@ const MyItems = () => {
         <Navigate to={"/"}></Navigate>
       ) : (
         <>
-          {" "}
           {items ? (
-            <div className="itemCardContainer">
-              {" "}
-            
-              {items.map((item, i) => {
-                return <Card key={i} item={item.item} forSale={item} myItems={true}  />;
-              })}
-            </div>
+            <>
+            <div className= "userContactDetails"> User contact here</div>
+              <div className="itemCardContainer">
+                {items.map((item, i) => {
+                  return (
+                    <Card
+                      key={i}
+                      item={item.item}
+                      forSale={item}
+                      myItems={true}
+                    />
+                  );
+                })}
+              </div>
+            </>
           ) : (
             <>No items for sale</>
           )}
-                   <button onClick={() => console.log(items)}>asd</button>
+          <button onClick={() => console.log(user)}>asd</button>
         </>
       )}
     </div>

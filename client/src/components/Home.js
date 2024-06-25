@@ -82,15 +82,6 @@ const Home = () => {
             })}
           </div>
           <NextPrevButtons data={fetchedData.data} />
-          <button
-            onClick={() => {
-              let user = localStorage.getItem("user");
-              let foundUser = JSON.parse(user);
-              console.log(foundUser)
-            }}
-          >
-            Test
-          </button>
         </div>
       ) : (
         <>Loading</>

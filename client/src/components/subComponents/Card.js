@@ -4,7 +4,7 @@ import LikeButton from "./LikeButton";
 import AddToCollection from "./AddToSellButton";
 import DeleteItem from "./DeleteItem";
 
-const Card = (props) => {
+const Card = (props) =>  {
   const { item, forSale } = props;
 
   item.name = item.name.replace(/&amp;/g, "&");
@@ -53,8 +53,6 @@ const Card = (props) => {
               <p className="price">Price: £{forSale.price}</p>
               <p className="quantity">Available: {forSale.quantity} pcs</p>
             </div>
-            <p className="location">Location: {forSale.location}</p>
-            <p className="contact">Contact: {forSale.contact}</p>
             <DeleteItem forSale={forSale} />
           </div>
         ) : (

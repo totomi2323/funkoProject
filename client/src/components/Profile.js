@@ -5,7 +5,8 @@ const Profile = () => {
     const {user} = useAuth();
 
     return(
-        <div>
+        <div className="userPage">
+            
             <p>Profile page</p>
             <button onClick={()=> {console.log(user)}}>Console</button>
         </div>
