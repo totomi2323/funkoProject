@@ -22,6 +22,7 @@ router.post("/sale/delete", verifyToken, apiController.delete_sale);
 
 router.post("/sell/add" ,verifyToken, upload.single('file'), apiController.add_item_forsale)
 
+router.post("/user/change_name", verifyToken, apiController.change_name)
 
 
 module.exports = router; 
@@ -34,7 +35,6 @@ function verifyToken(req, res, next) {
   
     jwt.verify(token, process.env.ACCESS_TOKEN_KEY, (err, decoded) => {
       if (err) return res.status(401).json({ error: "Invalid token" });
-      console.log(decoded)
       req.userId = decoded.uid;
       next();
     });

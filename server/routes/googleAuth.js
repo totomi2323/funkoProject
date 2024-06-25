@@ -32,7 +32,8 @@ router.post("/", async (req, res) => {
     nickName :  payload.family_name +" "+payload.given_name,
     uid: payload.sub,
     picture: payload.picture,
-    wishlist: []
+    wishlist: [],
+    email: payload.email
   };
 
   
