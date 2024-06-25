@@ -45,10 +45,9 @@ router.post("/", async (req, res) => {
   if (userExist) {
     if (userExist.wishlist) {
       userDetails.wishlist = userExist.wishlist;
-      jwtToken = jwt.sign({ userDetails },process.env.ACCESS_TOKEN_KEY, {expiresIn: '1h'});
-
       if (userExist.nickName) {
         userDetails.nickName = userExist.nickName
+        jwtToken = jwt.sign({ userDetails },process.env.ACCESS_TOKEN_KEY, {expiresIn: '1h'});
       }
     }
     const updateUserToken = await User.findByIdAndUpdate(userExist._id, {

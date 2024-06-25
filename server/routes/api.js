@@ -35,7 +35,7 @@ function verifyToken(req, res, next) {
   
     jwt.verify(token, process.env.ACCESS_TOKEN_KEY, (err, decoded) => {
       if (err) return res.status(401).json({ error: "Invalid token" });
-      req.userId = decoded.uid;
+      req.userDetails = decoded.userDetails;
       next();
     });
   }

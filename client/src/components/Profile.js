@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../hooks/AuthProvider";
+import "../styles/profile.css"
 
 const Profile = () => {
-  let { user, loggedIn, checkLoggedIn, token } = useAuth();
+  let { user, loggedIn, checkLoggedIn, token, updateUser } = useAuth();
 
   const [editName, setEditName] = useState(false);
-  const [newNickname, setNewNickname] = useState("")
+  const [newNickname, setNewNickname] = useState("");
 
   useEffect(() => {
     if (user === undefined && loggedIn === false) {
@@ -22,31 +23,40 @@ const Profile = () => {
   };
 
   const nameOnChange = (e) => {
-    setNewNickname(e.target.value)
-  }
+    setNewNickname(e.target.value);
+  };
 
   const changeNickName = () => {
-
     let data = {
-        userGoogleId : user.uid,
-        newNickname
-    }
+      userGoogleId: user.uid,
+      newNickname,
+    };
 
-        if ((newNickname !== "") && (newNickname !== undefined)) {
-            fetch("http://192.168.0.31:5000/api/user/change_name", {
-                method: "POST",
-                mode: "cors",
-                headers: {
-                  Accept: "application/json",
-                  "Content-Type": "application/json",
-                  "Authorization" : `Bearer ${token}`
-                },
-                body: JSON.stringify(data),
-              });
-              user.nickName = newNickname;
-        }
-    setEditName(false)
-  }
+    if (newNickname !== "" && newNickname !== undefined) {
+      fetch("http://192.168.0.31:5000/api/user/change_name", {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      }).then((response) => {
+        response.json().then((data) => {
+          if (response.status === 401) {
+            console.log(response.statusText);
+          } else {
+            console.log(data);
+            updateUser(data);
+          }
+        });
+      });
+
+      user.nickName = newNickname;
+    }
+    setEditName(false);
+  };
 
   return user ? (
     <>
@@ -55,35 +65,39 @@ const Profile = () => {
         <div>
           {editName ? (
             <>
-              <input placeholder="New name" onChange={(nameOnChange)}></input>
-              <button onClick={changeNickName}> Change name</button>
-              <button onClick={changeEditName}> Cancel</button>
+              <input placeholder="New name" onChange={nameOnChange}></input>
+              <button onClick={changeNickName} className="changeNameButton">
+                {" "}
+                Change name
+              </button>
+              <button
+                onClick={changeEditName}
+                className="cancelChangeNameButton"
+              >
+                {" "}
+                Cancel
+              </button>
             </>
           ) : (
             <>
-              <p>{user.nickName}</p>
-              <button onClick={changeEditName}>change name</button>
+              <p className="profileUserName">{user.nickName}</p>
+              <button className="changeNameButton" onClick={changeEditName}>
+                change name
+              </button>
             </>
           )}
         </div>
         <div className="addContactContainer">
-          <input placeholder="new contact"></input> <button>Add</button>
+          <input className="addContactInput" placeholder="new contact"></input>{" "}
+          <button className="addContactButton">Add</button>
         </div>
-        <div className="contactList">
-          <ul>
-            <li>
-              {" "}
-              <input type={"checkbox"}></input> Email : {user.email}
+        <div className="contactListContainer">
+          <ul className="contactList">
+            <li className="contactListElement">
+              <input className="contactCheckBox" type={"checkbox"}></input><p className="contactDetail"> Email : {user.email}</p>
             </li>
           </ul>
         </div>
-        <button
-          onClick={() => {
-            console.log(user);
-          }}
-        >
-          Console
-        </button>
       </div>
     </>
   ) : (

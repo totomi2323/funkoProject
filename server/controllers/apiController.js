@@ -1,10 +1,10 @@
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
+const jwt = require("jsonwebtoken");
+const fs = require("fs");
+const { promisify } = require("util");
 
-const fs = require('fs')
-const {promisify} = require("util");
-
-const unlinkAsync = promisify(fs.unlink)
+const unlinkAsync = promisify(fs.unlink);
 
 const Item = require("../models/item");
 const Series = require("../models/series");
@@ -82,7 +82,7 @@ exports.get_wishlist = asyncHandler(async (req, res, next) => {
   let user = await User.findOne({ googleId: userID })
     .populate("wishlist")
     .exec();
-  console.log(user);
+
   res.json(user.wishlist);
 });
 
@@ -95,19 +95,11 @@ exports.get_item = asyncHandler(async (req, res, next) => {
 });
 
 exports.add_item_forsale = asyncHandler(async (req, res, next) => {
-  console.log(req.body);
-  console.log(req.file);
-
   const { data, userID, itemID } = req.body;
 
   let parsedData = JSON.parse(data);
 
-  console.log(parsedData);
-
   const findUser = await User.findOne({ googleId: userID }).exec();
-
-  console.log(findUser._id);
-  console.log("File name:" + req.file.filename);
 
   const newItemForSale = new ForSale({
     item: itemID,
@@ -154,7 +146,6 @@ exports.get_sales = asyncHandler(async (req, res, next) => {
 exports.delete_sale = asyncHandler(async (req, res, next) => {
   const data = req.body;
 
-  console.log(data)
   await ForSale.findByIdAndDelete(data._id);
   await Item.updateOne(
     { _id: data.item._id },
@@ -162,27 +153,32 @@ exports.delete_sale = asyncHandler(async (req, res, next) => {
   );
   await User.updateOne({ _id: data.available }, { $pull: { sale: data._id } });
 
-  let path = "./public/images/"+data.imgUrl
-  console.log(path)
-  
+  let path = "./public/images/" + data.imgUrl;
+
   fs.unlink(path, (err) => {
     if (err) {
-      console.error(err)
-      return
-    }})
-
+      console.error(err);
+      return;
+    }
+  });
 });
 
-exports.change_name = asyncHandler(async(req,res,next) => {
+exports.change_name = asyncHandler(async (req, res, next) => {
   const data = req.body;
 
+  let userDetails = req.userDetails;
+  userDetails.nickName = data.newNickname;
+  console.log(userDetails)
 
+  jwtToken = jwt.sign({ userDetails }, process.env.ACCESS_TOKEN_KEY, {
+    expiresIn: "1h",
+  });
 
 
   await User.updateOne(
     { googleId: data.userGoogleId },
     { nickName: data.newNickname }
   );
-
-  console.log(data)
-})
+  userDetails = JSON.stringify(userDetails)
+  res.json({ token: jwtToken, user : userDetails });
+});
