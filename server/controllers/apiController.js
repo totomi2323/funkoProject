@@ -172,3 +172,17 @@ exports.delete_sale = asyncHandler(async (req, res, next) => {
     }})
 
 });
+
+exports.change_name = asyncHandler(async(req,res,next) => {
+  const data = req.body;
+
+
+
+
+  await User.updateOne(
+    { googleId: data.userGoogleId },
+    { nickName: data.newNickname }
+  );
+
+  console.log(data)
+})
