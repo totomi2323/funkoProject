@@ -14,11 +14,11 @@ const UserSchema = new Schema({
   ],
   sale: [{ type: Schema.Types.ObjectId, ref: "ForSale", required: true }],
   token: { type: String, required: true },
-  contact: {
+  contact: [{
     name: { type: String, required: true },
     details: { type: String, required: true },
     display: { type: Boolean, required: true },
-  },
+  }],
 });
 
 module.exports = mongoose.model("User", UserSchema);

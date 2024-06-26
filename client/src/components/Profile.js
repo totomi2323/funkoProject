@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../hooks/AuthProvider";
-import "../styles/profile.css"
+import "../styles/profile.css";
 
 const Profile = () => {
   let { user, loggedIn, checkLoggedIn, token, updateUser } = useAuth();
 
   const [editName, setEditName] = useState(false);
   const [newNickname, setNewNickname] = useState("");
+  const [contactOption, setContactOption] = useState(undefined)
+  const [contactValue, setContactValue] = useState(undefined)
 
   useEffect(() => {
     if (user === undefined && loggedIn === false) {
@@ -21,6 +23,7 @@ const Profile = () => {
       setEditName(true);
     }
   };
+
 
   const nameOnChange = (e) => {
     setNewNickname(e.target.value);
@@ -58,6 +61,16 @@ const Profile = () => {
     setEditName(false);
   };
 
+
+  const contactOptionOnChange = (e) => {
+      setContactOption(e.target.value)
+  }
+
+  const contactValueOnChange = (e) => {
+    setContactValue(e.target.value)
+    console.log(e.target.value)
+  }
+
   return user ? (
     <>
       <div className="userPage">
@@ -67,14 +80,12 @@ const Profile = () => {
             <>
               <input placeholder="New name" onChange={nameOnChange}></input>
               <button onClick={changeNickName} className="changeNameButton">
-                {" "}
                 Change name
               </button>
               <button
                 onClick={changeEditName}
                 className="cancelChangeNameButton"
               >
-                {" "}
                 Cancel
               </button>
             </>
@@ -88,16 +99,42 @@ const Profile = () => {
           )}
         </div>
         <div className="addContactContainer">
-          <input className="addContactInput" placeholder="new contact"></input>{" "}
+          <label for="contactName"> Choose a contact option: </label>
+            <select name="contactName" onChange={contactOptionOnChange}> 
+              <option value="facebook">Facebook</option>
+              <option value="whatsapp">WhatsApp</option>
+              <option value="email">Email</option>
+              <option value="ebay">Ebay</option>
+              <option value="instagram">Instagram</option>
+              <option value="other">Other</option>
+              </select>
+          <input className="contactValue" placeholder="qwe@asd.com" onChange={contactValueOnChange}></input>
           <button className="addContactButton">Add</button>
         </div>
         <div className="contactListContainer">
           <ul className="contactList">
-            <li className="contactListElement">
-              <input className="contactCheckBox" type={"checkbox"}></input><p className="contactDetail"> Email : {user.email}</p>
-            </li>
+            {user.contact.map((cont) => {
+              return (
+                <li className="contactListElement">
+                  <input
+                    className="contactCheckBox"
+                    type={"checkbox"}
+                    checked={cont.display}
+                  ></input>
+                  <p className="contactDetail"> {cont.name}: {cont.details}</p>
+                </li>
+              );
+            })}
+           
           </ul>
         </div>
+        <button
+          onClick={() => {
+            console.log(user);
+          }}
+        >
+          asd
+        </button>
       </div>
     </>
   ) : (

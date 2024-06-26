@@ -45,6 +45,7 @@ router.post("/", async (req, res) => {
   if (userExist) {
     if (userExist.wishlist) {
       userDetails.wishlist = userExist.wishlist;
+      userDetails.contact = userExist.contact;
       if (userExist.nickName) {
         userDetails.nickName = userExist.nickName
         jwtToken = jwt.sign({ userDetails },process.env.ACCESS_TOKEN_KEY, {expiresIn: '1h'});
@@ -55,12 +56,14 @@ router.post("/", async (req, res) => {
     });
 
   } else {
+    jwtToken = jwt.sign({ userDetails },process.env.ACCESS_TOKEN_KEY, {expiresIn: '1h'});
     const newUser = await new User({
       googleId: payload.sub,
       name: payload.name,
       email: payload.email,
       token: jwtToken,
-      nickName: "",
+      nickName: payload.name,
+      contact: {name: "Email", details: payload.email, display: true}
     }).save();  }
 
   
