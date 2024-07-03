@@ -23,6 +23,7 @@ router.post("/sale/delete", verifyToken, apiController.delete_sale);
 router.post("/sell/add" ,verifyToken, upload.single('file'), apiController.add_item_forsale)
 
 router.post("/user/change_name", verifyToken, apiController.change_name)
+router.post("/user/contact/add", verifyToken, apiController.add_contact)
 
 
 module.exports = router; 

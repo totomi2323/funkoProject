@@ -7,8 +7,8 @@ const Profile = () => {
 
   const [editName, setEditName] = useState(false);
   const [newNickname, setNewNickname] = useState("");
-  const [contactOption, setContactOption] = useState(undefined)
-  const [contactValue, setContactValue] = useState(undefined)
+  const [contactOption, setContactOption] = useState("Facebook");
+  const [contactValue, setContactValue] = useState(undefined);
 
   useEffect(() => {
     if (user === undefined && loggedIn === false) {
@@ -23,7 +23,6 @@ const Profile = () => {
       setEditName(true);
     }
   };
-
 
   const nameOnChange = (e) => {
     setNewNickname(e.target.value);
@@ -50,7 +49,6 @@ const Profile = () => {
           if (response.status === 401) {
             console.log(response.statusText);
           } else {
-            console.log(data);
             updateUser(data);
           }
         });
@@ -61,15 +59,52 @@ const Profile = () => {
     setEditName(false);
   };
 
-
   const contactOptionOnChange = (e) => {
-      setContactOption(e.target.value)
-  }
+    setContactOption(e.target.value);
+  };
 
   const contactValueOnChange = (e) => {
-    setContactValue(e.target.value)
-    console.log(e.target.value)
-  }
+    setContactValue(e.target.value);
+    console.log(e.target.value);
+  };
+
+  const addNewContact = () => {
+    if (contactValue && contactOption) {
+      console.log("Working");
+      let newContact = {
+        name: contactOption,
+        details: contactValue,
+        display: true,
+      };
+      user.contact.push(newContact);
+
+      const data = { userGoogleId: user.uid, newContact };
+
+      fetch("http://192.168.0.31:5000/api/user/contact/add", {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      }).then((response) => {
+        response.json().then((data) => {
+          if (response.status === 401) {
+            console.log(response.statusText);
+          } else {
+            updateUser(data);
+          }
+        });
+      });
+
+      setContactOption(undefined);
+      setContactValue(undefined);
+    } else {
+      console.log("Undefined values");
+    }
+  };
 
   return user ? (
     <>
@@ -99,33 +134,40 @@ const Profile = () => {
           )}
         </div>
         <div className="addContactContainer">
-          <label for="contactName"> Choose a contact option: </label>
-            <select name="contactName" onChange={contactOptionOnChange}> 
-              <option value="facebook">Facebook</option>
-              <option value="whatsapp">WhatsApp</option>
-              <option value="email">Email</option>
-              <option value="ebay">Ebay</option>
-              <option value="instagram">Instagram</option>
-              <option value="other">Other</option>
-              </select>
-          <input className="contactValue" placeholder="qwe@asd.com" onChange={contactValueOnChange}></input>
-          <button className="addContactButton">Add</button>
+          <label htmlFor="contactName"> Choose a contact option: </label>
+          <select name="contactName" onChange={contactOptionOnChange}>
+            <option value="Facebook">Facebook</option>
+            <option value="Whatsapp">WhatsApp</option>
+            <option value="Email">Email</option>
+            <option value="Ebay">Ebay</option>
+            <option value="Instagram">Instagram</option>
+            <option value="other">Other</option>
+          </select>
+          <input
+            className="contactValue"
+            placeholder="qwe@asd.com"
+            onChange={contactValueOnChange}
+          ></input>
+          <button className="addContactButton" onClick={addNewContact}>
+            Add
+          </button>
         </div>
         <div className="contactListContainer">
           <ul className="contactList">
             {user.contact.map((cont) => {
               return (
-                <li className="contactListElement">
+                <li className="contactListElement" key={cont._id}>
                   <input
                     className="contactCheckBox"
                     type={"checkbox"}
-                    checked={cont.display}
+                    defaultChecked={cont.display}
                   ></input>
-                  <p className="contactDetail"> {cont.name}: {cont.details}</p>
+                  <p className="contactDetail">
+                    {cont.name}: {cont.details}
+                  </p>
                 </li>
               );
             })}
-           
           </ul>
         </div>
         <button

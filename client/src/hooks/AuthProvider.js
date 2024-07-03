@@ -83,7 +83,7 @@ const AuthContext = createContext();
     setUser(parsedUser)
     setToken(data.token)
     localStorage.setItem("token", data.token);
-    localStorage.setItem("user" , data.user)
+    localStorage.setItem("user" , data.user) 
   }
     return (
       <AuthContext.Provider value={{token, loggedIn, user, login, logout, checkLoggedIn, updateUser }}>

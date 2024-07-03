@@ -168,7 +168,6 @@ exports.change_name = asyncHandler(async (req, res, next) => {
 
   let userDetails = req.userDetails;
   userDetails.nickName = data.newNickname;
-  console.log(userDetails)
 
   jwtToken = jwt.sign({ userDetails }, process.env.ACCESS_TOKEN_KEY, {
     expiresIn: "1h",
@@ -182,3 +181,22 @@ exports.change_name = asyncHandler(async (req, res, next) => {
   userDetails = JSON.stringify(userDetails)
   res.json({ token: jwtToken, user : userDetails });
 });
+
+exports.add_contact = asyncHandler(async(req,res,next) => {
+  const data = req.body;
+
+  console.log(data)
+
+  let userDetails = req.userDetails;
+  userDetails.contact.push(data.newContact);
+
+  jwtToken = jwt.sign({ userDetails }, process.env.ACCESS_TOKEN_KEY, {
+    expiresIn: "1h",
+  });
+  await User.updateOne(
+    { googleId: data.userGoogleId },
+    { $push: { contact: data.newContact } }
+  );
+  userDetails = JSON.stringify(userDetails)
+  res.json({ token: jwtToken, user : userDetails });
+})
