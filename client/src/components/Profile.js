@@ -68,6 +68,9 @@ const Profile = () => {
   };
 
   const addNewContact = () => {
+    const errorElement = document.getElementById("error");
+    errorElement.style.display = "none";
+    
     if (contactValue && contactOption) {
       let newContact = {
         name: contactOption,
@@ -102,11 +105,16 @@ const Profile = () => {
   };
 
   const deleteContact = (e) => {
+    const errorElement = document.getElementById("error");
 
     if (user.contact.length <= 1) {
-      console.log("You must have atleast one contact")
-    } else 
-    {
+      console.log("You must have atleast one contact");
+
+      errorElement.textContent = "You must have atleast one contact";
+      errorElement.style.display = "block";
+    } else {
+      errorElement.style.display = "none";
+
       let data = { userGoogleId: user.uid, contactID: e.target.parentNode.id };
 
       fetch("http://192.168.0.31:5000/api/user/contact/delete", {
@@ -128,17 +136,20 @@ const Profile = () => {
         });
       });
     }
- 
   };
 
   return user ? (
     <>
       <div className="userPage">
-        <h2>Profile page</h2>
+        <h2 className="profilePageHeader">Profile page</h2>
         <div className="profileNameContainer">
           {editName ? (
             <>
-              <input placeholder="New name" onChange={nameOnChange} className="newNameInput"></input>
+              <input
+                placeholder="New name"
+                onChange={nameOnChange}
+                className="newNameInput"
+              ></input>
               <button onClick={changeNickName} className="changeNameButton">
                 Change name
               </button>
@@ -150,7 +161,7 @@ const Profile = () => {
               </button>
             </>
           ) : (
-            < >
+            <>
               <p className="profileUserName">{user.nickName}</p>
               <button className="changeNameButton" onClick={changeEditName}>
                 change name
@@ -160,7 +171,11 @@ const Profile = () => {
         </div>
         <div className="addContactContainer">
           <label htmlFor="contactName"> Choose a contact option: </label>
-          <select name="contactName" onChange={contactOptionOnChange} className="contactNameOption">
+          <select
+            name="contactName"
+            onChange={contactOptionOnChange}
+            className="contactNameOption"
+          >
             <option value="Facebook">Facebook</option>
             <option value="Whatsapp">WhatsApp</option>
             <option value="Email">Email</option>
@@ -193,13 +208,7 @@ const Profile = () => {
             })}
           </ul>
         </div>
-        <button
-          onClick={() => {
-            console.log(user);
-          }}
-        >
-          asd
-        </button>
+        <p id="error"></p>
       </div>
     </>
   ) : (

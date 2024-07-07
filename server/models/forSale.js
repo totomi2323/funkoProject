@@ -9,7 +9,6 @@ const ForSaleSchema = new Schema ({
     available: {type:Schema.Types.ObjectId, ref: "User", required: true},
     price: {type: Number, required:true},
     quantity: {type: Number, required : true},
-    contact: {type:String, required: true},
     description: {type:String},
     location: {type:String, required: true},
 })

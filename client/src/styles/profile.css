@@ -1,16 +1,24 @@
 .userPage {
     max-width: 600px;
-    margin: 0 auto;
+    margin:10vh auto;
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
-  .userPage h2 {
-    text-align: center;
-    color: #333;
+  .profilePageHeader {
+    color: #333; 
+    background-color: #f8f9fa; 
+    padding: 15px 20px; 
+    margin: 20px 0; 
+    font-size: 24px; 
+    font-weight: bold; 
+    text-align: center; 
+    
+   
   }
+  
   
   .userPage div {
     margin-bottom: 20px;
@@ -129,3 +137,16 @@
     padding: 8px;
     border-radius: 12px;
   }
+
+  #error {
+    color: #dc3545; 
+    background-color: #f8d7da; 
+    border: 1px solid #f5c6cb; 
+    border-radius: 4px; 
+    padding: 10px; 
+    margin: 10px 0; 
+    font-size: 14px; 
+    font-weight: bold;
+    display: none; 
+  }
+  

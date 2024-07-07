@@ -107,7 +107,6 @@ exports.add_item_forsale = asyncHandler(async (req, res, next) => {
     available: findUser._id,
     price: parsedData.price,
     quantity: parsedData.quantity,
-    contact: parsedData.contact,
     description: parsedData.description,
     location: parsedData.location,
   });
@@ -130,7 +129,7 @@ exports.add_item_forsale = asyncHandler(async (req, res, next) => {
       },
     }
   );
-  res.send(200);
+  res.sendStatus(200);
 });
 
 exports.get_sales = asyncHandler(async (req, res, next) => {

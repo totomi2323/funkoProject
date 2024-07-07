@@ -39,7 +39,6 @@ const SellItem = () => {
    console.log(user)
     data.price = e.target.elements.price.value;
     data.quantity = e.target.elements.quantity.value;
-    data.contact = e.target.elements.contact.value;
     data.description = e.target.elements.description.value;
     data.location = e.target.elements.location.value;
     
@@ -150,10 +149,6 @@ const SellItem = () => {
                 required
                 placeholder="1"
               ></input>
-            </div>
-            <div className="form-element">
-              <label htmlFor="contact"> Contact: </label>
-              <input type={"text"} name="contact" required></input>
             </div>
             <div className="form-element">
               <label htmlFor="timestamp_img">Timestamp image: </label>
