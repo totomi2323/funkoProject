@@ -129,30 +129,31 @@ const SellItem = () => {
         <div className="formContainer">
           <form className="sellForm" action="#" onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="form-element">
-              <label htmlFor="description"> Description: </label>
-              <input type={"text"} name="description" ></input>
+              <label htmlFor="description" className="descriptionLabel"> Description: </label>
+              <input type={"text"} name="description" className="descriptionInput" ></input>
             </div>{" "}
             <div className="form-element">
-              <label htmlFor="location"> Location: </label>
-              <input type={"text"} name="location" required></input>
+              <label htmlFor="location" className="locationLabel"> Location: </label>
+              <input type={"text"} name="location" classname="locationInput" required></input>
             </div>
            
             <div className="form-element">
-              <label htmlFor="price">Price: </label>
-              £ <input type={"number"} name="price" required></input>
+              <label htmlFor="price" className="priceLabel">Price: </label>
+              £ <input type={"number"} name="price" className="priceInput" required></input>
             </div>
             <div className="form-element">
-              <label htmlFor="quantity">Quantity: </label>
+              <label htmlFor="quantity" className="quantityLabel">Quantity: </label>
               <input
                 type={"number"}
                 name="quantity"
                 required
                 placeholder="1"
+                className="quantityInput"
               ></input>
             </div>
             <div className="form-element">
-              <label htmlFor="timestamp_img">Timestamp image: </label>
-              <input type={"file"} name="timestamp_img" onChange={(e) => setFile(e.target.files[0])} required></input>
+              <label htmlFor="timestamp_img" className="timeStampImgLabel">Timestamp image: </label>
+              <input type={"file"} name="timestamp_img" className="timeStampImgInput" onChange={(e) => setFile(e.target.files[0])} required></input>
             </div>
             <p>{statusMessage}</p>
             <button type="submit" className="sell-button">
