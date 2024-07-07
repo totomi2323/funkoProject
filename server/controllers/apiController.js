@@ -173,30 +173,55 @@ exports.change_name = asyncHandler(async (req, res, next) => {
     expiresIn: "1h",
   });
 
-
   await User.updateOne(
     { googleId: data.userGoogleId },
     { nickName: data.newNickname }
   );
-  userDetails = JSON.stringify(userDetails)
-  res.json({ token: jwtToken, user : userDetails });
+  userDetails = JSON.stringify(userDetails);
+  res.json({ token: jwtToken, user: userDetails });
 });
 
-exports.add_contact = asyncHandler(async(req,res,next) => {
+exports.add_contact = asyncHandler(async (req, res, next) => {
   const data = req.body;
-
-  console.log(data)
 
   let userDetails = req.userDetails;
   userDetails.contact.push(data.newContact);
 
-  jwtToken = jwt.sign({ userDetails }, process.env.ACCESS_TOKEN_KEY, {
-    expiresIn: "1h",
-  });
   await User.updateOne(
     { googleId: data.userGoogleId },
     { $push: { contact: data.newContact } }
   );
-  userDetails = JSON.stringify(userDetails)
-  res.json({ token: jwtToken, user : userDetails });
-})
+
+  let updatedUser = await User.findOne({ googleId: data.userGoogleId });
+
+  userDetails.contact = updatedUser.contact;
+
+  jwtToken = jwt.sign({ userDetails }, process.env.ACCESS_TOKEN_KEY, {
+    expiresIn: "1h",
+  });
+
+  userDetails = JSON.stringify(userDetails);
+  res.json({ token: jwtToken, user: userDetails });
+});
+
+exports.delete_contact = asyncHandler(async (req, res, next) => {
+  const data = req.body;
+  let userDetails = req.userDetails;
+
+  userDetails.contact.splice(
+    userDetails.contact.findIndex((cont) => cont._id === data.contactID),
+    1
+  );
+
+  await User.updateOne(
+    { googleId: data.userGoogleId },
+    { $pull: { contact: { _id: data.contactID } } }
+  );
+
+  jwtToken = jwt.sign({ userDetails }, process.env.ACCESS_TOKEN_KEY, {
+    expiresIn: "1h",
+  });
+
+  userDetails = JSON.stringify(userDetails);
+  res.json({ token: jwtToken, user: userDetails });
+});

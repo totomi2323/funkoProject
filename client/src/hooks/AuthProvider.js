@@ -64,13 +64,11 @@ const AuthContext = createContext();
             if (response.status === 401) {
             console.log(response.statusText)
             } else {
-          
               setUser(data.user.userDetails)
               setToken(userToken)
               setLoggedIn(true)
               navigate("/");
             }
-          
           });
         });
     

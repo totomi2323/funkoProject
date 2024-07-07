@@ -17,7 +17,6 @@ const UserSchema = new Schema({
   contact: [{
     name: { type: String, required: true },
     details: { type: String, required: true },
-    display: { type: Boolean, required: true },
   }],
 });
 

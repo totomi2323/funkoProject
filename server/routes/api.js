@@ -24,6 +24,7 @@ router.post("/sell/add" ,verifyToken, upload.single('file'), apiController.add_i
 
 router.post("/user/change_name", verifyToken, apiController.change_name)
 router.post("/user/contact/add", verifyToken, apiController.add_contact)
+router.post("/user/contact/delete", verifyToken, apiController.delete_contact )
 
 
 module.exports = router; 

@@ -63,7 +63,7 @@ router.post("/", async (req, res) => {
       email: payload.email,
       token: jwtToken,
       nickName: payload.name,
-      contact: {name: "Email", details: payload.email, display: true}
+      contact: {name: "Email", details: payload.email}
     }).save();  }
 
   
