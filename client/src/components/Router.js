@@ -8,6 +8,7 @@ import MyItems from "./MyItems";
 import Profile from "./Profile";
 import AuthProvider from "../hooks/AuthProvider";
 import SellItem from "./SellItem";
+import Sale from "./Sale"
 
 import { Children } from "react";
 
@@ -34,30 +35,33 @@ const Router = () => {
           element: <Register />,
         },
         {
-          path:"/profile",
-          element:<Profile/>,
+          path: "/profile",
+          element: <Profile />,
         },
         {
-          path:"/my_items",
-          element:<MyItems/>,
+          path: "/my_items",
+          element: <MyItems />,
+        },
+        {
+          path: "/sell/:itemId",
+          element: <SellItem />,
+        },
+        {
+          path:"/seller/:sellerId",
+          element: <Sale/>,
         }
-      ,
-      {
-        path: "/sell/:itemId",
-        element: <SellItem/>
-      }
       ],
     },
   ]);
   return <RouterProvider router={router} />;
-}; 
+};
 
 const NavBarWrapper = () => {
   return (
     <>
       <AuthProvider>
         <NavBar />
-        <Outlet/>
+        <Outlet />
       </AuthProvider>
     </>
   );

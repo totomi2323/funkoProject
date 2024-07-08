@@ -3,9 +3,11 @@ import "../../styles/card.css";
 import LikeButton from "./LikeButton";
 import AddToCollection from "./AddToSellButton";
 import DeleteItem from "./DeleteItem";
+import { useNavigate } from "react-router-dom";
 
-const Card = (props) =>  {
+const Card = (props) => {
   const { item, forSale } = props;
+  const navigate = useNavigate();
 
   item.name = item.name.replace(/&amp;/g, "&");
 
@@ -56,23 +58,38 @@ const Card = (props) =>  {
             <DeleteItem forSale={forSale} />
           </div>
         ) : (
-          <div >
+          <div>
             <div className="interactionButtons">
               <LikeButton itemId={item._id} />
               <AddToCollection itemId={item._id} />
             </div>
-            {item.available  ? (
-              <>
-                {item.available.map((value, i) => {
-                  return (
-                    <div>
-                      <p>Available:</p>
-                      {value.user ? <>{value.user.name} </> : <></>}
-                      <>£{value.price} </>
-                    </div>
-                  );
-                })}
-              </>
+            {item.available.length !== 0 ? (
+              <div className="availableContainer">
+                <p className="available">Available:</p>
+                <ul className="sellerList">
+                  {item.available.map((value, i) => {
+                    return (
+                      <>
+                        {value.user ? (
+                          <li className="sellerListElement" key={i}>
+                            <button
+                              className="linkToSeller"
+                              onClick={() => {
+                                navigate("/seller/" + value.user._id);
+                              }}
+                            >
+                              {value.user.nickName}
+                            </button>
+                            <p className="priceOfSale">£{value.price}</p>{" "}
+                          </li>
+                        ) : (
+                          <></>
+                        )}
+                      </>
+                    );
+                  })}
+                </ul>
+              </div>
             ) : (
               <></>
             )}
