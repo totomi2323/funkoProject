@@ -6,7 +6,7 @@ import DeleteItem from "./DeleteItem";
 import { useNavigate } from "react-router-dom";
 
 const Card = (props) => {
-  const { item, forSale } = props;
+  const { item, forSale, myItems } = props;
   const navigate = useNavigate();
 
   item.name = item.name.replace(/&amp;/g, "&");
@@ -55,7 +55,7 @@ const Card = (props) => {
               <p className="price">Price: £{forSale.price}</p>
               <p className="quantity">Available: {forSale.quantity} pcs</p>
             </div>
-            <DeleteItem forSale={forSale} />
+            <DeleteItem forSale={forSale} myItems={myItems}/>
           </div>
         ) : (
           <div>

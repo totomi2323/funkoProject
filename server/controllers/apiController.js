@@ -132,7 +132,7 @@ exports.add_item_forsale = asyncHandler(async (req, res, next) => {
   res.sendStatus(200);
 });
 
-exports.get_sales = asyncHandler(async (req, res, next) => {
+exports.get_own_sales = asyncHandler(async (req, res, next) => {
   const userID = req.params.id;
 
   let user = await User.findOne({ googleId: userID })
@@ -140,6 +140,22 @@ exports.get_sales = asyncHandler(async (req, res, next) => {
     .exec();
 
   res.json(user.sale);
+});
+
+exports.get_public_sales = asyncHandler(async (req, res, nex) => {
+  const userID = req.params.id;
+
+  let user = await User.findOne({ _id : userID })
+  .populate({ path: "sale", populate: { path: "item" } })
+  .exec();
+
+  const userPublic = {
+    contact :user.contact,
+    nickName: user.nickName,
+    sale: user.sale
+  }
+
+  res.json(userPublic)
 });
 
 exports.delete_sale = asyncHandler(async (req, res, next) => {

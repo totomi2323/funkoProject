@@ -33,6 +33,8 @@ const MyItems = () => {
 
   return (
     <div className="wishlistPage">
+       <button onClick={() => {console.log(items)}}>console</button>
+            <button onClick={() => {console.log(user)}}>console</button>
       {!loggedIn ? (
         <Navigate to={"/"}></Navigate>
       ) : (

@@ -16,8 +16,10 @@ router.post("/wishlist/remove", verifyToken ,apiController.dislike_item)
 
 router.get("/item/:id", verifyToken, apiController.get_item)
 
+router.get("/sale/:id", verifyToken , apiController.get_own_sales) 
 
-router.get("/sale/:id", verifyToken , apiController.get_sales) 
+router.get("/seller/:id" , apiController.get_public_sales) 
+
 router.post("/sale/delete", verifyToken, apiController.delete_sale);
 
 router.post("/sell/add" ,verifyToken, upload.single('file'), apiController.add_item_forsale)
