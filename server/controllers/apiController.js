@@ -47,6 +47,8 @@ exports.get_items = asyncHandler(async (req, res, next) => {
 exports.like_item = asyncHandler(async (req, res, next) => {
   const data = req.body;
 
+  let userDetails = req.userDetails;
+
   const updateUser = await User.findOne({ googleId: data.userGoogleId });
   const item = await Item.findById(data.itemId);
 
@@ -57,11 +59,21 @@ exports.like_item = asyncHandler(async (req, res, next) => {
       { googleId: data.userGoogleId },
       { $push: { wishlist: item._id } }
     );
+    userDetails.wishlist.push(data.itemId)
   }
+
+  jwtToken = jwt.sign({ userDetails }, process.env.ACCESS_TOKEN_KEY, {
+    expiresIn: "1h",
+  });
+
+  userDetails = JSON.stringify(userDetails);
+  res.json({ token: jwtToken, user: userDetails });
 });
 
 exports.dislike_item = asyncHandler(async (req, res, next) => {
   const data = req.body;
+
+  let userDetails = req.userDetails;
 
   const updateUser = await User.findOne({ googleId: data.userGoogleId });
   const item = await Item.findById(data.itemId);
@@ -73,7 +85,16 @@ exports.dislike_item = asyncHandler(async (req, res, next) => {
       { googleId: data.userGoogleId },
       { $pull: { wishlist: item._id } }
     );
+    let index = userDetails.wishlist.indexOf(data.itemId);
+    userDetails.wishlist.splice(index, 1);
   }
+
+  jwtToken = jwt.sign({ userDetails }, process.env.ACCESS_TOKEN_KEY, {
+    expiresIn: "1h",
+  });
+
+  userDetails = JSON.stringify(userDetails);
+  res.json({ token: jwtToken, user: userDetails });
 });
 
 exports.get_wishlist = asyncHandler(async (req, res, next) => {

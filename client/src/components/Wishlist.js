@@ -9,18 +9,22 @@ const Wishlist = () => {
 
   const [items, setItems] = useState([]);
 
+  
   useEffect(() => {
-    fetch("http://192.168.0.31:5000/api/wishlist/" + user.uid, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((response) => {
-      response.json().then((res) => {
-        setItems(res);
+    if (user)  {
+      fetch("http://192.168.0.31:5000/api/wishlist/" + user.uid, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((response) => {
+        response.json().then((res) => {
+          setItems(res);
+        });
       });
-    });
-    console.log(items)
+      console.log(items)
+    }
+   
   }, []);
 
   return (
@@ -34,7 +38,7 @@ const Wishlist = () => {
             <div className="itemCardContainer">
               {" "}
               {items.map((item, i) => {
-                return <Card key={i} item={item} />;
+                return <Card key={i} item={item} myItems={false} />;
               })}
             </div>
           ) : (

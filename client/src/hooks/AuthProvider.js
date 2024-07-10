@@ -76,7 +76,6 @@ const AuthContext = createContext();
     }
   
   const updateUser = (data) => {
-  
     let parsedUser = JSON.parse(data.user)
     setUser(parsedUser)
     setToken(data.token)

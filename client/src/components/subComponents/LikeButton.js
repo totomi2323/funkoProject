@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom"
 
 const LikeButton = (props) => {
   const { itemId } = props;
-  let { user, token } = useAuth();
+  let { user, token , updateUser} = useAuth();
 
   const [checked, setChecked] = useState(false);
 
@@ -47,8 +47,15 @@ const LikeButton = (props) => {
             "Authorization" : `Bearer ${token}`
           },
           body: JSON.stringify(data),
+        }).then((response) => {
+          response.json().then((data) => {
+            if (response.status === 401) {
+              console.log(response.statusText);
+            } else {
+              updateUser(data);
+            }
+          });
         });
-        user.wishlist.push(itemId);
         setChecked(true);
       } else {
         setChecked(false);
@@ -66,7 +73,15 @@ const LikeButton = (props) => {
             "Authorization" : `Bearer ${token}`
           },
           body: JSON.stringify(data),
-        });
+        }).then((response) => {
+          response.json().then((data) => {
+            if (response.status === 401) {
+              console.log(response.statusText);
+            } else {
+              updateUser(data);
+            }
+          });
+        });;
 
         let index = user.wishlist.indexOf(itemId);
         user.wishlist.splice(index, 1);
