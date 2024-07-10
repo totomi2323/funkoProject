@@ -1,155 +1,151 @@
 /* Navbar Container */
 .navbar {
-    background-color: #333333;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  /* Link Styles */
-  .navbar a {
-    text-decoration: none;
-    color: rgb(149, 148, 148);
-    margin: 0 10px;
-    padding: 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
-  .navbar a:hover {
-    background-color: #2980b9;
-  }
-  
+  background-color: #333333;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-  
- .userLogo {
-  color:white;
- }
+/* Link Styles */
+.navbar a {
+  text-decoration: none;
+  color: rgb(149, 148, 148);
+  margin-left: 5%;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
 
-  
-  .logout {
-    --black: #000000;
-    --ch-black: #141414;
-    --eer-black: #1b1b1b;
-    --night-rider: #2e2e2e;
-    --white: #ffffff;
-    --af-white: #f3f3f3;
-    --ch-white: #e1e1e1;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 30px;
-    height: 30px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition-duration: .3s;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
-    background-color: var(--af-white);
-  }
-  
-  /* plus sign */
-  .sign {
-    width: 100%;
-    transition-duration: .3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .sign svg {
-    width: 17px;
-  }
-  
-  .sign svg path {
-    fill: var(--night-rider);
-  }
-  /* text */
-  .text {
-    position: absolute;
-    right: 0%;
-    width: 0%;
-    opacity: 0;
-    color: var(--night-rider);
-    font-size: 1.2em;
-    font-weight: 600;
-    transition-duration: .3s;
-  }
-  /* hover effect on button width */
-  .logout:hover {
-    width: 125px;
-    border-radius: 5px;
-    transition-duration: .3s;
-  }
-  
-  .logout:hover .sign {
-    width: 30%;
-    transition-duration: .3s;
-  }
-  /* hover effect button's text */
-  .logout:hover .text {
-    opacity: 1;
-    width: 70%;
-    transition-duration: .3s;
-    padding-right: 10px;
-  }
-  /* button click effect*/
-  .logout:active {
-    transform: translate(2px ,2px);
-  }
+.navbar a:hover {
+  background-color: #2980b9;
+}
 
-  .userButton {
-    position: relative;
-    display: flex;
-    padding:12px;
-    
-  }
-  
-  /* Style for category text */
-  .userButton p {
-    margin: 0;
-    padding: 0;
-    cursor: pointer;
-    color: rgb(149, 148, 148);
-  }
-  
-  /* Hide category list by default */
-  .dropDownList {
-    display: none;
-    position: absolute;
-    right: 0;
-    top: 30px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 12px 16px;
-    z-index: 1;
-    background-color:  #52aeeb;;
-    border-radius: 8px;
-    width: 160px;
-  }
-  .dropDownElement { 
+.userLogo {
+  color: white;
+}
 
-  }
-  /* Style for category list items */
-  .dropDownList li {
-    list-style: none;
-    padding: 8px ;
-    font-weight: bold;
-    color: white;
-  }
-  .dropDownList li a { 
-    color: white;
-  }
- 
-  /* Show category list on hover */
-  .userButton:hover .dropDownList {
-    display: block;
-  }
-  
-  /* Change category list items on hover */
-  .dropDownList li:hover {
-    cursor: pointer;
-    border-radius: 6px;
-  }
+.logout {
+  --black: #000000;
+  --ch-black: #141414;
+  --eer-black: #1b1b1b;
+  --night-rider: #2e2e2e;
+  --white: #ffffff;
+  --af-white: #f3f3f3;
+  --ch-white: #e1e1e1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition-duration: 0.3s;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+  background-color: var(--af-white);
+}
+
+/* plus sign */
+.sign {
+  width: 100%;
+  transition-duration: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sign svg {
+  width: 17px;
+}
+
+.sign svg path {
+  fill: var(--night-rider);
+}
+/* text */
+.text {
+  position: absolute;
+  right: 0%;
+  width: 0%;
+  opacity: 0;
+  color: var(--night-rider);
+  font-size: 1.2em;
+  font-weight: 600;
+  transition-duration: 0.3s;
+}
+/* hover effect on button width */
+.logout:hover {
+  width: 125px;
+  border-radius: 5px;
+  transition-duration: 0.3s;
+}
+
+.logout:hover .sign {
+  width: 30%;
+  transition-duration: 0.3s;
+}
+/* hover effect button's text */
+.logout:hover .text {
+  opacity: 1;
+  width: 70%;
+  transition-duration: 0.3s;
+  padding-right: 10px;
+}
+/* button click effect*/
+.logout:active {
+  transform: translate(2px, 2px);
+}
+
+.userButton {
+  position: relative;
+  display: flex;
+  padding: 12px;
+  margin-right: 5%;
+}
+
+/* Style for category text */
+.userButton p {
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  color: rgb(149, 148, 148);
+}
+
+/* Hide category list by default */
+.dropDownList {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 30px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+  z-index: 1;
+  background-color: #52aeeb;
+  border-radius: 8px;
+  width: 160px;
+}
+.dropDownElement {
+}
+/* Style for category list items */
+.dropDownList li {
+  list-style: none;
+  padding: 8px;
+  font-weight: bold;
+  color: white;
+}
+.dropDownList li a {
+  color: white;
+}
+
+/* Show category list on hover */
+.userButton:hover .dropDownList {
+  display: block;
+}
+
+/* Change category list items on hover */
+.dropDownList li:hover {
+  cursor: pointer;
+  border-radius: 6px;
+}

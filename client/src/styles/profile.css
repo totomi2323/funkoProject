@@ -150,3 +150,63 @@
     display: none; 
   }
   
+  @media (max-width: 768px) {
+    .userPage {
+      max-width: 100%;
+      margin: 10px;
+      padding: 15px;
+    }
+    
+    .profilePageHeader {
+      font-size: 20px;
+      padding: 10px;
+      margin: 15px 0;
+    }
+    
+    .userPage div {
+      margin-bottom: 15px;
+    }
+    
+    .changeNameButton,
+    .cancelChangeNameButton,
+    .addContactButton {
+      margin: 5px 0;
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+    
+    .addContactContainer {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    
+    .addContactInput {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+    
+    .contactListContainer {
+      padding: 15px;
+    }
+    
+    .contactListElement {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 8px 0;
+    }
+    
+    .contactDetail {
+      font-size: 14px;
+    }
+    
+    .deleteContact {
+      padding: 5px;
+      font-size: 12px;
+    }
+    
+    .profileNameContainer {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  
