@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../../styles/addToCollection.css";
 import { useAuth } from "../../hooks/AuthProvider";
 
@@ -11,7 +11,7 @@ const DeleteItem = (props) => {
 
   const handleSubmit = () => {
     const data = forSale;
-    fetch("http://192.168.0.31:5000/api/sale/delete", {
+    fetch("https://server-damp-darkness-3315.fly.dev/api/sale/delete", {
       method: "POST",
       mode: "cors",
       headers: {

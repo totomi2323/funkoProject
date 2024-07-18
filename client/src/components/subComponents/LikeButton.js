@@ -38,7 +38,7 @@ const LikeButton = (props) => {
           userGoogleId: user.uid,
           itemId: itemId,
         };
-        fetch("http://192.168.0.31:5000/api/wishlist/add", {
+        fetch("https://server-damp-darkness-3315.fly.dev/api/wishlist/add", {
           method: "POST",
           mode: "cors",
           headers: {
@@ -64,7 +64,7 @@ const LikeButton = (props) => {
           userGoogleId: user.uid,
           itemId: itemId,
         };
-        fetch("http://192.168.0.31:5000/api/wishlist/remove", {
+        fetch("https://server-damp-darkness-3315.fly.dev/api/wishlist/remove", {
           method: "POST",
           mode: "cors",
           headers: {

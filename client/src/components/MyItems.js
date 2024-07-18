@@ -19,7 +19,7 @@ const MyItems = () => {
 
   useEffect(() => {
     if (user) {
-      fetch("http://192.168.0.31:5000/api/sale/" + user.uid, {
+      fetch("https://server-damp-darkness-3315.fly.dev/api/sale/" + user.uid, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -34,7 +34,6 @@ const MyItems = () => {
 
   return (
     <div className="wishlistPage">
-      <button onClick={()=> { console.log(user)}}>asd</button>
       {!loggedIn ? (
         <Navigate to={"/"}></Navigate>
       ) : (

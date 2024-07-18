@@ -12,7 +12,7 @@ const Wishlist = () => {
   
   useEffect(() => {
     if (user)  {
-      fetch("http://192.168.0.31:5000/api/wishlist/" + user.uid, {
+      fetch("https://server-damp-darkness-3315.fly.dev/api/wishlist/" + user.uid, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,

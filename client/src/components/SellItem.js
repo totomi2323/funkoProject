@@ -18,7 +18,7 @@ const SellItem = () => {
   let { itemId } = useParams();
 
   useEffect(() => {
-    fetch("http://192.168.0.31:5000/api/item/" + itemId, {
+    fetch("https://server-damp-darkness-3315.fly.dev/api/item/" + itemId, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -48,7 +48,7 @@ const SellItem = () => {
     formData.append("itemID", item._id)
     formData.append("file", file)
 
-    fetch("http://192.168.0.31:5000/api/sell/add", {
+    fetch("https://server-damp-darkness-3315.fly.dev/api/sell/add", {
       method: "POST",
       mode: "cors",
       headers: {

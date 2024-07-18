@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "../../styles/card.css";
 import LikeButton from "./LikeButton";
 import AddToCollection from "./AddToSellButton";
@@ -19,7 +19,7 @@ const Card = (props) => {
             {forSale ? (
               <img
                 className="itemImage"
-                src={"http://192.168.0.31:5000/images/" + forSale.imgUrl}
+                src={"https://server-damp-darkness-3315.fly.dev/images/" + forSale.imgUrl}
               ></img>
             ) : (
               <img className="itemImage" src={item.imgUrl}></img>

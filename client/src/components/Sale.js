@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
-import { useAuth } from "../hooks/AuthProvider";
 import Card from "./subComponents/Card";
 import "../styles/itemsForSale.css";
 import { useParams } from "react-router-dom";
@@ -13,7 +11,7 @@ const Sale = () => {
 
   useEffect(() => {
 
-      fetch("http://192.168.0.31:5000/api/seller/" + sellerId, {
+      fetch("https://server-damp-darkness-3315.fly.dev/api/seller/" + sellerId, {
         method: "GET",
       }).then((response) => {
         response.json().then((res) => {

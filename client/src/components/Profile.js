@@ -35,7 +35,7 @@ const Profile = () => {
     };
 
     if (newNickname !== "" && newNickname !== undefined) {
-      fetch("http://192.168.0.31:5000/api/user/change_name", {
+      fetch("https://server-damp-darkness-3315.fly.dev/api/user/change_name", {
         method: "POST",
         mode: "cors",
         headers: {
@@ -79,7 +79,7 @@ const Profile = () => {
 
       const data = { userGoogleId: user.uid, newContact };
 
-      fetch("http://192.168.0.31:5000/api/user/contact/add", {
+      fetch("https://server-damp-darkness-3315.fly.dev/api/user/contact/add", {
         method: "POST",
         mode: "cors",
         headers: {
@@ -118,7 +118,7 @@ const Profile = () => {
 
       let data = { userGoogleId: user.uid, contactID: e.target.parentNode.id };
 
-      fetch("http://192.168.0.31:5000/api/user/contact/delete", {
+      fetch("https://server-damp-darkness-3315.fly.dev/api/user/contact/delete", {
         method: "POST",
         mode: "cors",
         headers: {
