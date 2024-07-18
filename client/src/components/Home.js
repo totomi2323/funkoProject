@@ -30,7 +30,7 @@ const Home = () => {
   useEffect(() => {
     setSearch("");
     fetch(
-      "http://192.168.0.31:5000/api/home?" +
+      "https://server-damp-darkness-3315.fly.dev/api/home?" +
         new URLSearchParams({
           search: searchValue ? searchValue : "",
           page: pageValue ? pageValue : "",

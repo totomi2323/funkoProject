@@ -12,7 +12,7 @@ block content
                 th.table-header Image
                 th.table-header Series
                 th.table-header Available
-                th.table-header Price
+      
                 th.table-header Alt
                 th.table-header Edit
         tbody
@@ -25,9 +25,8 @@ block content
                         each series in item.series
                             p.table-text= series.name
                     td.table-cell
-                        each user in item.available
-                            p.table-text= user
-                    td.table-cell.table-number= item.price
+                        each seller in item.available.user
+                            p.table-text= seller.name
                     td.table-cell.table-text= item.alt
                     td.table-cell 
                         a(href=item.url+"/update") Update

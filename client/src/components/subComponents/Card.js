@@ -19,7 +19,7 @@ const Card = (props) => {
             {forSale ? (
               <img
                 className="itemImage"
-                src={"http://127.0.0.1:5000/images/" + forSale.imgUrl}
+                src={"http://192.168.0.31:5000/images/" + forSale.imgUrl}
               ></img>
             ) : (
               <img className="itemImage" src={item.imgUrl}></img>
@@ -36,7 +36,6 @@ const Card = (props) => {
             {item.series.map((ser, i) => {
               return (
                 <li key={i} className="seriesListElement">
-                  {" "}
                   {ser.name}
                 </li>
               );

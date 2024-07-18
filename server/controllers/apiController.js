@@ -59,7 +59,7 @@ exports.like_item = asyncHandler(async (req, res, next) => {
       { googleId: data.userGoogleId },
       { $push: { wishlist: item._id } }
     );
-    userDetails.wishlist.push(data.itemId)
+    userDetails.wishlist.push(data.itemId);
   }
 
   jwtToken = jwt.sign({ userDetails }, process.env.ACCESS_TOKEN_KEY, {
@@ -166,17 +166,17 @@ exports.get_own_sales = asyncHandler(async (req, res, next) => {
 exports.get_public_sales = asyncHandler(async (req, res, nex) => {
   const userID = req.params.id;
 
-  let user = await User.findOne({ _id : userID })
-  .populate({ path: "sale", populate: { path: "item" } })
-  .exec();
+  let user = await User.findOne({ _id: userID })
+    .populate({ path: "sale", populate: { path: "item" } })
+    .exec();
 
   const userPublic = {
-    contact :user.contact,
+    contact: user.contact,
     nickName: user.nickName,
-    sale: user.sale
-  }
+    sale: user.sale,
+  };
 
-  res.json(userPublic)
+  res.json(userPublic);
 });
 
 exports.delete_sale = asyncHandler(async (req, res, next) => {
@@ -197,6 +197,7 @@ exports.delete_sale = asyncHandler(async (req, res, next) => {
       return;
     }
   });
+  res.sendStatus(200);
 });
 
 exports.change_name = asyncHandler(async (req, res, next) => {

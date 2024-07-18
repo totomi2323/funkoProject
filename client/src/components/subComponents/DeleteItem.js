@@ -3,9 +3,11 @@ import "../../styles/addToCollection.css";
 import { useAuth } from "../../hooks/AuthProvider";
 
 const DeleteItem = (props) => {
-  let { token } = useAuth();
-
+  let { token , updateUser} = useAuth();
   const { forSale, myItems } = props;
+
+  const [statusMessage, setStatusMessage] = useState('');
+  const [element , setElement] = useState()
 
   const handleSubmit = () => {
     const data = forSale;
@@ -18,7 +20,38 @@ const DeleteItem = (props) => {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(data),
+    }).then((response) => {
+      handleResponseStatus(response.status)
     });
+      
+  };
+ 
+  const handleResponseStatus = (status) => {
+    switch (status) {
+      case 200:
+        setStatusMessage('Success! Your request was completed.');
+        break;
+      case 201:
+        setStatusMessage('Created! Your resource has been created.');
+        break;
+      case 400:
+        setStatusMessage('Bad Request! Please check your input.');
+        break;
+      case 401:
+        setStatusMessage('Unauthorized! Please log in.');
+        break;
+      case 403:
+        setStatusMessage('Forbidden! You do not have access.');
+        break;
+      case 404:
+        setStatusMessage('Not Found! The resource does not exist.');
+        break;
+      case 500:
+        setStatusMessage('Server Error! Please try again later.');
+        break;
+      default:
+        setStatusMessage('An unexpected error occurred.');
+    }
   };
 
   return (

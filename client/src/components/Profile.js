@@ -99,6 +99,7 @@ const Profile = () => {
       });
 
       setContactValue(undefined);
+      document.querySelector(".addContactInput").value=""
     } else {
       console.log("Undefined values");
     }

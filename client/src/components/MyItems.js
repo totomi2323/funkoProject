@@ -9,6 +9,7 @@ const MyItems = () => {
   const { loggedIn, user, token, checkLoggedIn } = useAuth();
 
   const [items, setItems] = useState([]);
+  
 
   useEffect(() => {
     if (user === undefined && loggedIn === false) {
@@ -27,12 +28,13 @@ const MyItems = () => {
         response.json().then((res) => {
           setItems(res);
         });
-      });
+      })
     }
-  }, [items]);
+  }, []);
 
   return (
     <div className="wishlistPage">
+      <button onClick={()=> { console.log(user)}}>asd</button>
       {!loggedIn ? (
         <Navigate to={"/"}></Navigate>
       ) : (

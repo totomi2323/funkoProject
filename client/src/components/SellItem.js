@@ -55,10 +55,9 @@ const SellItem = () => {
         Authorization: `Bearer ${token}`,
       },
       body: formData,
-    })
-      .then((response) => {
-        handleResponseStatus(response.status)
-      });
+    }) .then((response) => {
+      handleResponseStatus(response.status)
+    });
       
   };
   const handleResponseStatus = (status) => {
