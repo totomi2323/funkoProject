@@ -52,7 +52,7 @@ const Router = () => {
       ],
     },
   ]);
-  return <RouterProvider router={router} />;
+  return <RouterProvider router={router} basename={process.env.PUBLIC_URL}  />;
 };
 
 const NavBarWrapper = () => {
