@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const AddToCollection = (props) => {
   const { itemId } = props;
-  let { user, token } = useAuth();
+  let { user } = useAuth();
 
   const navigate = useNavigate();
   const handleAddToSale = (e) => {

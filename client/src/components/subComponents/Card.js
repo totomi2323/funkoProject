@@ -18,11 +18,11 @@ const Card = (props) => {
           <>
             {forSale ? (
               <img
-                className="itemImage"
+                className="itemImage" alt="Timestamp image"
                 src={"https://server-damp-darkness-3315.fly.dev/images/" + forSale.imgUrl}
               ></img>
             ) : (
-              <img className="itemImage" src={item.imgUrl}></img>
+              <img className="itemImage" src={item.imgUrl} alt={item.alt}></img>
             )}
           </>
         ) : (

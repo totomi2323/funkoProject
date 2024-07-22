@@ -98,7 +98,7 @@ const SellItem = () => {
             <div className="sellItemImageContainer">
               {item.imgUrl !== "undefined" ? (
                 <>
-                  <img className="itemForSaleImage" src={item.imgUrl}></img>
+                  <img className="itemForSaleImage" alt={item.alt} src={item.imgUrl}></img>
                 </>
               ) : (
                 <p className="noImage">No Image Available</p>

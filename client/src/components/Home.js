@@ -4,7 +4,7 @@ import NextPrevButtons from "./subComponents/NextPrevButtons";
 import "../styles/card.css";
 import "../styles/home.css";
 import { useAuth } from "../hooks/AuthProvider";
-import { useSearchParams, Link, useNavigate } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import headerPicture from "../images/headPics.jpg";
 import searchButtonSvg from "../svg/magnify.svg";
 
@@ -49,7 +49,7 @@ const Home = () => {
           {searchValue ? (
             <></>
           ) : (
-            <img src={headerPicture} className="headerPicture"></img>
+            <img src={headerPicture} className="headerPicture" alt="Page header picture"></img>
           )}
 
           <form className="searchForm">
@@ -72,7 +72,7 @@ const Home = () => {
                 navigate(`/?searchItem=${search}`);
               }}
             >
-              <img src={searchButtonSvg} className="searchSvg"></img>
+              <img src={searchButtonSvg} className="searchSvg" alt="Search Button"></img>
             </button>
           </form>
 

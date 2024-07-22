@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import GoogleAuthButton from "./GoogleAuthButton";
 import "../styles/login.css";
 import { useAuth } from "../hooks/AuthProvider";

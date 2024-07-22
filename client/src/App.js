@@ -1,7 +1,6 @@
 import React from "react";
 import Router from "./components/Router";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import AuthProvider from "../src/hooks/AuthProvider";
 import "./App.css"
 function App() {
   return (
