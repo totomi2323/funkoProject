@@ -1,7 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
-  "homepage": "https://totomi2323.github.io/",
+  "homepage": "https://totomi2323.github.io/funkoProject",
   "proxy": "http://localhost:3000",
   "private": true,
   "dependencies": {
