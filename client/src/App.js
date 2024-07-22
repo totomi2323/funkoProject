@@ -6,7 +6,7 @@ function App() {
   return (
       <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
         <div className="main">
-          <Router />
+          <div>Test</div>
         </div>
       </GoogleOAuthProvider>
   );
