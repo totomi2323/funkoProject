@@ -19,7 +19,7 @@ const AuthContext = createContext();
     const login = useGoogleLogin({
       onSuccess: async ({ code }) => {
         setLoggedIn(true);
-        const data = await fetch('http://127.0.0.1:5000/googleAuth', {
+        const data = await fetch('https://server-damp-darkness-3315.fly.dev/googleAuth', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ const AuthContext = createContext();
 
       const userToken = localStorage.getItem("token");
       if (userToken) {
-        const data = await fetch('http://127.0.0.1:5000/googleAuth/protected', {
+        const data = await fetch('https://server-damp-darkness-3315.fly.dev/googleAuth/protected', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
