@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/funkoProject/index.html/static/css/main.50cbeded.css",
-    "main.js": "/funkoProject/index.html/static/js/main.dc162449.js",
+    "main.js": "/funkoProject/index.html/static/js/main.42353ccb.js",
     "static/js/787.d5fa4d18.chunk.js": "/funkoProject/index.html/static/js/787.d5fa4d18.chunk.js",
     "static/media/headPics.jpg": "/funkoProject/index.html/static/media/headPics.6929cb45aa0ebc6c853a.jpg",
     "index.html": "/funkoProject/index.html/index.html",
     "static/media/magnify.svg": "/funkoProject/index.html/static/media/magnify.cf1e7b6e5f5f6947c15712c702178433.svg",
     "static/media/user.svg": "/funkoProject/index.html/static/media/user.780a52a3688dd2fd0230fe4949982dd5.svg",
     "main.50cbeded.css.map": "/funkoProject/index.html/static/css/main.50cbeded.css.map",
-    "main.dc162449.js.map": "/funkoProject/index.html/static/js/main.dc162449.js.map",
+    "main.42353ccb.js.map": "/funkoProject/index.html/static/js/main.42353ccb.js.map",
     "787.d5fa4d18.chunk.js.map": "/funkoProject/index.html/static/js/787.d5fa4d18.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.50cbeded.css",
-    "static/js/main.dc162449.js"
+    "static/js/main.42353ccb.js"
   ]
 }

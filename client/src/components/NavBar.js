@@ -10,7 +10,7 @@ const NavBar = () => {
   return (
     <div className="navbar">
       
-      <Link className="homeLink" to={"/"}>
+      <Link className="homeLink" to={"/index"}>
         Home
       </Link>
       {!loggedIn ? (
