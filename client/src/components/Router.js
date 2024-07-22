@@ -18,7 +18,7 @@ const Router = () => {
       element: <NavBarWrapper />,
       children: [
         {
-          path: "/index",
+          path: "/",
           element: <Home />,
         },
         {
