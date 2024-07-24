@@ -5,7 +5,7 @@ import "../styles/card.css";
 import "../styles/home.css";
 import { useAuth } from "../hooks/AuthProvider";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import headerPicture from "../images/headPics.jpg";
+import headerPicture from "../pictures/headPics.jpg";
 import searchButtonSvg from "../svg/magnify.svg";
 
 const Home = () => {
